@@ -1,0 +1,139 @@
+object frmFormulario: TfrmFormulario
+  Left = 0
+  Top = 0
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object Header: TToolBar
+    Height = 48.000000000000000000
+    TabOrder = 0
+    Width = 384.000000000000000000
+    object HeaderLabel: TLabel
+      Align = Contents
+      Height = 48.000000000000000000
+      StyleLookup = 'toollabel'
+      TextSettings.HorzAlign = Center
+      Text = 'Edi'#231#227'o de Formul'#225'rio'
+      Width = 384.000000000000000000
+    end
+  end
+  object Footer: TToolBar
+    Align = Bottom
+    Height = 48.000000000000000000
+    Position.Y = 519.000000000000000000
+    StyleLookup = 'bottomtoolbar'
+    TabOrder = 1
+    Width = 384.000000000000000000
+  end
+  object scrollPrincipal: TScrollBox
+    Align = Client
+    Height = 471.000000000000000000
+    TabOrder = 3
+    Width = 384.000000000000000000
+    object pnlDataHoraChegada: TPanel
+      Align = Top
+      Height = 57.000000000000000000
+      Width = 384.000000000000000000
+      TabOrder = 1
+      object dtChegada: TDateEdit
+        Date = 42234.000000000000000000
+        Cursor = crMultiDrag
+        Height = 32.000000000000000000
+        Position.X = 3.000000000000000000
+        Position.Y = 22.000000000000000000
+        TabOrder = 1
+        Width = 137.000000000000000000
+      end
+      object Label1: TLabel
+        Align = Top
+        Height = 23.000000000000000000
+        Text = 'Chegada:'
+        Width = 384.000000000000000000
+      end
+      object HorasChegada: TTimeEdit
+        Time = 0.638888888888888800
+        Height = 32.000000000000000000
+        Position.X = 160.000000000000000000
+        Position.Y = 22.000000000000000000
+        TabOrder = 3
+        Width = 105.000000000000000000
+      end
+    end
+    object pnlDataHoraSaida: TPanel
+      Align = Top
+      Height = 57.000000000000000000
+      Position.Y = 57.000000000000000000
+      Width = 384.000000000000000000
+      TabOrder = 0
+      object dtSaida: TDateEdit
+        Date = 42234.000000000000000000
+        Cursor = crMultiDrag
+        Height = 32.000000000000000000
+        Position.X = 3.000000000000000000
+        Position.Y = 22.000000000000000000
+        TabOrder = 1
+        Width = 137.000000000000000000
+      end
+      object Label2: TLabel
+        Align = Top
+        Height = 23.000000000000000000
+        Text = 'Sa'#237'da:'
+        Width = 384.000000000000000000
+      end
+      object HorasSaida: TTimeEdit
+        Time = 0.638888888888888800
+        Height = 32.000000000000000000
+        Position.X = 160.000000000000000000
+        Position.Y = 22.000000000000000000
+        TabOrder = 3
+        Width = 105.000000000000000000
+      end
+    end
+    object pnlServicosRealizados: TPanel
+      Align = Top
+      Height = 223.000000000000000000
+      Position.Y = 114.000000000000000000
+      StyleLookup = 'calloutpanelstyle'
+      Width = 384.000000000000000000
+      TabOrder = 2
+      object grdServicosRealizados: TGrid
+        Align = Bottom
+        Height = 153.000000000000000000
+        Position.Y = 70.000000000000000000
+        TabOrder = 1
+        Width = 384.000000000000000000
+        RowCount = 100
+        RowHeight = 21.000000000000000000
+        object grdServicosRealizadosCollServico: TStringColumn
+          Align = Client
+          Height = 2100.000000000000000000
+          TabOrder = 0
+          Width = 389.000000000000000000
+        end
+      end
+      object cbServicoRealizado: TComboBox
+        Align = Right
+        DisableFocusEffect = False
+        Height = 32.000000000000000000
+        Position.X = 152.000000000000000000
+        Position.Y = 19.000000000000000000
+        TabOrder = 2
+        Width = 232.000000000000000000
+      end
+      object Label3: TLabel
+        Align = Left
+        Height = 70.000000000000000000
+        Text = 'Servi'#231'o Realizado:'
+        Width = 153.000000000000000000
+      end
+    end
+  end
+end

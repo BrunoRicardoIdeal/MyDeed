@@ -1,0 +1,64 @@
+object frmLogin: TfrmLogin
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object edtLogin: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 0
+    Position.X = 64.000000000000000000
+    Position.Y = 216.000000000000000000
+    Width = 257.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object edtSenha: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 1
+    Position.X = 64.000000000000000000
+    Position.Y = 272.000000000000000000
+    Width = 257.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object btnLogin: TButton
+    Height = 44.000000000000000000
+    Position.X = 249.000000000000000000
+    Position.Y = 312.000000000000000000
+    TabOrder = 2
+    Text = 'Login'
+    Width = 73.000000000000000000
+  end
+  object btnRegister: TButton
+    Height = 44.000000000000000000
+    Position.X = 136.000000000000000000
+    Position.Y = 312.000000000000000000
+    TabOrder = 3
+    Text = 'Register'
+    Width = 106.000000000000000000
+  end
+  object lblEsqueciMinhaSenha: TLabel
+    StyledSettings = [Family, Size, Style]
+    Height = 23.000000000000000000
+    Position.X = 136.000000000000000000
+    Position.Y = 360.000000000000000000
+    TextSettings.FontColor = claCornflowerblue
+    Text = 'Esqueci a minha senha'
+    Width = 217.000000000000000000
+  end
+  object lblMyDeed: TLabel
+    Height = 23.000000000000000000
+    Position.X = 112.000000000000000000
+    Position.Y = 112.000000000000000000
+    Text = 'MyDeed'
+    Width = 105.000000000000000000
+  end
+end

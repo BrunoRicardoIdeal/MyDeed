@@ -1,0 +1,105 @@
+object frmRegister: TfrmRegister
+  Left = 0
+  Top = 0
+  ClientHeight = 402
+  ClientWidth = 320
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  DesignerMobile = True
+  DesignerWidth = 320
+  DesignerHeight = 427
+  DesignerDeviceName = '2.7 QVGA Android Phone'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object Label1: TLabel
+    Align = Top
+    Height = 23.000000000000000000
+    Position.Y = 48.000000000000000000
+    Text = 'Login (E-Mail)'
+    Width = 320.000000000000000000
+  end
+  object edtLogin: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    Align = Top
+    TabOrder = 2
+    Position.Y = 71.000000000000000000
+    Width = 320.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object Label2: TLabel
+    Align = Top
+    Height = 23.000000000000000000
+    Position.Y = 158.000000000000000000
+    Text = 'Senha'
+    Width = 320.000000000000000000
+  end
+  object edtSenha: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    Align = Top
+    TabOrder = 1
+    Password = True
+    Position.Y = 181.000000000000000000
+    Width = 320.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object Label3: TLabel
+    Align = Top
+    Height = 23.000000000000000000
+    Position.Y = 213.000000000000000000
+    Text = 'Confirmar Senha'
+    Width = 320.000000000000000000
+  end
+  object edtConfirmarSenha: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    Align = Top
+    TabOrder = 5
+    Password = True
+    Position.Y = 236.000000000000000000
+    Width = 320.000000000000000000
+    Height = 32.000000000000000000
+  end
+  object Header: TToolBar
+    Height = 48.000000000000000000
+    TabOrder = 0
+    Width = 320.000000000000000000
+    object HeaderLabel: TLabel
+      Align = Left
+      Height = 48.000000000000000000
+      StyleLookup = 'toollabel'
+      Text = 'Register'
+      Width = 145.000000000000000000
+    end
+    object btnSalvar: TButton
+      Align = Right
+      Height = 48.000000000000000000
+      Position.X = 247.000000000000000000
+      TabOrder = 1
+      Text = 'Salvar'
+      Width = 73.000000000000000000
+    end
+    object btnCancelar: TButton
+      Align = Right
+      Height = 48.000000000000000000
+      Position.X = 160.000000000000000000
+      TabOrder = 0
+      Text = 'Cancelar'
+      Width = 87.000000000000000000
+    end
+  end
+  object Label4: TLabel
+    Align = Top
+    Height = 23.000000000000000000
+    Position.Y = 103.000000000000000000
+    Text = 'CPF'
+    Width = 320.000000000000000000
+  end
+  object edtCPF: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    Align = Top
+    TabOrder = 8
+    Position.Y = 126.000000000000000000
+    Width = 320.000000000000000000
+    Height = 32.000000000000000000
+  end
+end
