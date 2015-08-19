@@ -6,7 +6,7 @@ object HeaderFooterForm: THeaderFooterForm
   ClientWidth = 384
   FormFactor.Width = 1440
   FormFactor.Height = 900
-  FormFactor.Devices = [Desktop]
+  FormFactor.Devices = [dkDesktop, dkiPhone, dkiPad]
   DesignerMobile = True
   DesignerWidth = 384
   DesignerHeight = 592
@@ -18,18 +18,15 @@ object HeaderFooterForm: THeaderFooterForm
     TabOrder = 0
     Width = 384.000000000000000000
     object HeaderLabel: TLabel
-      Align = Contents
       Height = 48.000000000000000000
       StyleLookup = 'toollabel'
-      TextSettings.HorzAlign = Center
       Text = 'Title'
       Width = 384.000000000000000000
     end
   end
   object Footer: TToolBar
-    Align = Bottom
     Height = 48.000000000000000000
-    Position.Y = 519.000000000000000000
+    Position.Y = 48.000000000000000000
     StyleLookup = 'bottomtoolbar'
     TabOrder = 1
     Width = 384.000000000000000000

@@ -6,7 +6,7 @@ object frmServicos: TfrmServicos
   ClientWidth = 384
   FormFactor.Width = 320
   FormFactor.Height = 480
-  FormFactor.Devices = [Desktop]
+  FormFactor.Devices = [dkDesktop, dkiPhone, dkiPad]
   DesignerMobile = True
   DesignerWidth = 384
   DesignerHeight = 592
@@ -14,26 +14,26 @@ object frmServicos: TfrmServicos
   DesignerOrientation = 0
   DesignerOSVersion = ''
   object grdServicos: TGrid
-    Align = Top
+    Align = alTop
     Height = 441.000000000000000000
     TabOrder = 0
     Width = 384.000000000000000000
     RowCount = 100
     RowHeight = 21.000000000000000000
     object ColunaServicos: TColumn
-      Height = 420.000000000000000000
+      Height = 441.000000000000000000
       TabOrder = 0
       Width = 100.000000000000000000
     end
     object ColunaMarcacao: TCheckColumn
-      Height = 420.000000000000000000
+      Height = 441.000000000000000000
       Position.X = 100.000000000000000000
       TabOrder = 1
       Width = 100.000000000000000000
     end
   end
   object btnAdicionar: TButton
-    Align = Top
+    Align = alTop
     Height = 44.000000000000000000
     Position.Y = 441.000000000000000000
     TabOrder = 1

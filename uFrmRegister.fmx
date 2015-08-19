@@ -5,7 +5,7 @@ object frmRegister: TfrmRegister
   ClientWidth = 320
   FormFactor.Width = 320
   FormFactor.Height = 480
-  FormFactor.Devices = [Desktop]
+  FormFactor.Devices = [dkDesktop, dkiPhone, dkiPad]
   DesignerMobile = True
   DesignerWidth = 320
   DesignerHeight = 427
@@ -13,65 +13,67 @@ object frmRegister: TfrmRegister
   DesignerOrientation = 0
   DesignerOSVersion = ''
   object Label1: TLabel
-    Align = Top
+    Align = alTop
     Height = 23.000000000000000000
     Position.Y = 48.000000000000000000
     Text = 'Login (E-Mail)'
     Width = 320.000000000000000000
   end
   object edtLogin: TEdit
-    Touch.InteractiveGestures = [LongTap, DoubleTap]
-    Align = Top
-    TabOrder = 2
+    Touch.InteractiveGestures = [igLongTap, igDoubleTap]
+    Align = alTop
+    TabOrder = 3
     Position.Y = 71.000000000000000000
     Width = 320.000000000000000000
     Height = 32.000000000000000000
+    KillFocusByReturn = False
   end
   object Label2: TLabel
-    Align = Top
+    Align = alTop
     Height = 23.000000000000000000
     Position.Y = 158.000000000000000000
     Text = 'Senha'
     Width = 320.000000000000000000
   end
   object edtSenha: TEdit
-    Touch.InteractiveGestures = [LongTap, DoubleTap]
-    Align = Top
+    Touch.InteractiveGestures = [igLongTap, igDoubleTap]
+    Align = alTop
     TabOrder = 1
     Password = True
     Position.Y = 181.000000000000000000
     Width = 320.000000000000000000
     Height = 32.000000000000000000
+    KillFocusByReturn = False
   end
   object Label3: TLabel
-    Align = Top
+    Align = alTop
     Height = 23.000000000000000000
     Position.Y = 213.000000000000000000
     Text = 'Confirmar Senha'
     Width = 320.000000000000000000
   end
   object edtConfirmarSenha: TEdit
-    Touch.InteractiveGestures = [LongTap, DoubleTap]
-    Align = Top
+    Touch.InteractiveGestures = [igLongTap, igDoubleTap]
+    Align = alTop
     TabOrder = 5
     Password = True
     Position.Y = 236.000000000000000000
     Width = 320.000000000000000000
     Height = 32.000000000000000000
+    KillFocusByReturn = False
   end
   object Header: TToolBar
     Height = 48.000000000000000000
     TabOrder = 0
     Width = 320.000000000000000000
     object HeaderLabel: TLabel
-      Align = Left
       Height = 48.000000000000000000
       StyleLookup = 'toollabel'
       Text = 'Register'
       Width = 145.000000000000000000
     end
     object btnSalvar: TButton
-      Align = Right
+      Align = alRight
       Height = 48.000000000000000000
       Position.X = 247.000000000000000000
       TabOrder = 1
@@ -79,7 +81,7 @@ object frmRegister: TfrmRegister
       Width = 73.000000000000000000
     end
     object btnCancelar: TButton
-      Align = Right
+      Align = alRight
       Height = 48.000000000000000000
       Position.X = 160.000000000000000000
       TabOrder = 0
@@ -88,18 +90,19 @@ object frmRegister: TfrmRegister
     end
   end
   object Label4: TLabel
-    Align = Top
+    Align = alTop
     Height = 23.000000000000000000
     Position.Y = 103.000000000000000000
     Text = 'CPF'
     Width = 320.000000000000000000
   end
   object edtCPF: TEdit
-    Touch.InteractiveGestures = [LongTap, DoubleTap]
-    Align = Top
+    Touch.InteractiveGestures = [igLongTap, igDoubleTap]
+    Align = alTop
     TabOrder = 8
     Position.Y = 126.000000000000000000
     Width = 320.000000000000000000
     Height = 32.000000000000000000
+    KillFocusByReturn = False
   end
 end

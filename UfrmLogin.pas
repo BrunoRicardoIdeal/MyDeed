@@ -15,6 +15,7 @@ type
     btnRegister: TButton;
     lblEsqueciMinhaSenha: TLabel;
     lblMyDeed: TLabel;
+    procedure FormShow(Sender: TObject);
   private
     { Private declarations }
   public
@@ -27,5 +28,10 @@ var
 implementation
 
 {$R *.fmx}
+
+procedure TfrmLogin.FormShow(Sender: TObject);
+begin
+ ShowMessage('SHOW');
+end;
 
 end.

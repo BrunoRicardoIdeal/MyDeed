@@ -1,0 +1,98 @@
+object frmPrincipal: TfrmPrincipal
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 567
+  ClientWidth = 384
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [dkDesktop]
+  DesignerMobile = True
+  DesignerWidth = 384
+  DesignerHeight = 592
+  DesignerDeviceName = 'Google Nexus 4'
+  DesignerOrientation = 0
+  DesignerOSVersion = ''
+  object VertScrollBoxFundo: TVertScrollBox
+    Align = alClient
+    Height = 567.000000000000000000
+    TabOrder = 0
+    Width = 384.000000000000000000
+    object Header: THeader
+      Sides = [sdTop, sdLeft, sdBottom, sdRight]
+      Align = alTop
+      Height = 50.000000000000000000
+      TabOrder = 0
+      Width = 384.000000000000000000
+      object lblTitulo: TLabel
+        Align = alClient
+        Height = 23.000000000000000000
+        Text = 'Feed de Atualiza'#231#245'es'
+        Width = 225.000000000000000000
+        Trimming = ttCharacter
+      end
+    end
+    object Panel1: TPanel
+      Align = alTop
+      Height = 127.000000000000000000
+      Position.Y = 50.000000000000000000
+      StyleLookup = 'calloutpanelstyle'
+      Width = 384.000000000000000000
+      TabOrder = 1
+      object Label1: TLabel
+        Height = 23.000000000000000000
+        Position.X = 8.000000000000000000
+        Position.Y = 88.000000000000000000
+        Text = 'Autor:'
+        Width = 82.000000000000000000
+        Trimming = ttCharacter
+      end
+      object lblAutor: TLabel
+        Font.Style = [fsBold]
+        StyledSettings = [ssFamily, ssSize, ssFontColor]
+        Height = 23.000000000000000000
+        Position.X = 80.000000000000000000
+        Position.Y = 88.000000000000000000
+        Text = 'Seu Z'#233' da Silva'
+        Width = 209.000000000000000000
+        Trimming = ttCharacter
+      end
+      object Label5: TLabel
+        Height = 23.000000000000000000
+        Position.X = 8.000000000000000000
+        Position.Y = 56.000000000000000000
+        Text = 'Descri'#231#227'o :'
+        Width = 97.000000000000000000
+        Trimming = ttCharacter
+      end
+      object lblDescricao: TLabel
+        Font.Style = [fsBold]
+        StyledSettings = [ssFamily, ssSize, ssFontColor]
+        Height = 23.000000000000000000
+        Position.X = 112.000000000000000000
+        Position.Y = 56.000000000000000000
+        Text = 'Visita r'#225'pida'
+        Width = 201.000000000000000000
+        Trimming = ttCharacter
+      end
+      object lblDataHora: TLabel
+        Font.Style = [fsBold]
+        StyledSettings = [ssFamily, ssSize, ssFontColor]
+        Height = 23.000000000000000000
+        Position.X = 248.000000000000000000
+        Position.Y = 24.000000000000000000
+        Text = 'Data + hora'
+        Width = 121.000000000000000000
+        Trimming = ttCharacter
+      end
+      object lblCodigo: TLabel
+        Height = 23.000000000000000000
+        Position.X = 8.000000000000000000
+        Position.Y = 24.000000000000000000
+        Text = 'lblCodigo'
+        Width = 82.000000000000000000
+        Trimming = ttCharacter
+      end
+    end
+  end
+end
