@@ -12,13 +12,16 @@ type
     VertScrollBoxFundo: TVertScrollBox;
     Header: THeader;
     lblTitulo: TLabel;
-    Panel1: TPanel;
-    Label1: TLabel;
+    pnlNoticiaPrincipal: TPanel;
+    lblAutorTit: TLabel;
     lblAutor: TLabel;
     lblDataHora: TLabel;
-    Label5: TLabel;
+    lblDescricaoTit: TLabel;
     lblDescricao: TLabel;
     lblCodigo: TLabel;
+    pnlNoticiaTop: TPanel;
+    pnlNoticiaMid: TPanel;
+    pnlNoticiaBot: TPanel;
   private
     { Private declarations }
 

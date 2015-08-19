@@ -2,22 +2,31 @@ object frmServicos: TfrmServicos
   Left = 0
   Top = 0
   Caption = 'Form1'
-  ClientHeight = 567
-  ClientWidth = 384
+  ClientHeight = 508
+  ClientWidth = 320
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [dkDesktop, dkiPhone, dkiPad]
+  OnClose = FormClose
   DesignerMobile = True
-  DesignerWidth = 384
-  DesignerHeight = 592
-  DesignerDeviceName = 'Google Nexus 4'
+  DesignerWidth = 320
+  DesignerHeight = 533
+  DesignerDeviceName = 'Samsung Galaxy S2'
   DesignerOrientation = 0
   DesignerOSVersion = ''
-  object grdServicos: TGrid
-    Align = alTop
-    Height = 441.000000000000000000
+  object pnlLateral: TPanel
+    Align = alRight
+    Height = 460.000000000000000000
+    Position.X = 288.000000000000000000
+    Position.Y = 48.000000000000000000
+    Width = 32.000000000000000000
     TabOrder = 0
-    Width = 384.000000000000000000
+  end
+  object grdServicos: TGrid
+    Align = alClient
+    Height = 460.000000000000000000
+    TabOrder = 1
+    Width = 288.000000000000000000
     RowCount = 100
     RowHeight = 21.000000000000000000
     object ColunaServicos: TColumn
@@ -25,19 +34,42 @@ object frmServicos: TfrmServicos
       TabOrder = 0
       Width = 100.000000000000000000
     end
-    object ColunaMarcacao: TCheckColumn
+    object ColunaExcluirItem: TImageColumn
       Height = 441.000000000000000000
       Position.X = 100.000000000000000000
       TabOrder = 1
-      Width = 100.000000000000000000
+      Width = 60.000000000000000000
     end
   end
-  object btnAdicionar: TButton
-    Align = alTop
-    Height = 44.000000000000000000
-    Position.Y = 441.000000000000000000
-    TabOrder = 1
-    Text = 'Adicionar'
-    Width = 384.000000000000000000
+  object Header: TToolBar
+    Height = 48.000000000000000000
+    TabOrder = 2
+    Width = 320.000000000000000000
+    object cbServicos: TComboBox
+      Align = alLeft
+      DisableFocusEffect = False
+      Height = 32.000000000000000000
+      Position.Y = 8.000000000000000000
+      TabOrder = 0
+      Width = 201.000000000000000000
+    end
+    object spdAdd: TSpeedButton
+      Align = alLeft
+      Height = 48.000000000000000000
+      Position.X = 201.000000000000000000
+      StyleLookup = 'additembutton'
+      Text = 'spdAdd'
+      Trimming = ttCharacter
+      Width = 48.000000000000000000
+    end
+    object spdOk: TSpeedButton
+      Align = alRight
+      Height = 48.000000000000000000
+      Position.X = 264.000000000000000000
+      StyleLookup = 'donetoolbutton'
+      Text = 'OK'
+      Trimming = ttCharacter
+      Width = 56.000000000000000000
+    end
   end
 end

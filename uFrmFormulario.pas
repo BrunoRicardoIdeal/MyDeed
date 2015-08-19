@@ -6,7 +6,8 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.DateTimeCtrls, FMX.StdCtrls, FMX.Layouts, System.Rtti, FMX.Grid,
-  FMX.ListBox, FMX.Memo, FMX.Edit, FMX.ListView.Types, FMX.ListView, uAcao,uFrmservicos;
+  FMX.ListBox, FMX.Memo, FMX.Edit, FMX.ListView.Types, FMX.ListView, uAcao,uFrmservicos,
+  FMX.Objects;
 
 type
   TfrmFormulario = class(TForm)
@@ -19,21 +20,19 @@ type
     pnlDataHoraSaida: TPanel;
     Label2: TLabel;
     HorasSaida: TTimeEdit;
-    pnlServicosRealizados: TPanel;
-    btnAddServico: TButton;
     Label3: TLabel;
     btnSalvar: TButton;
     btnVoltar: TButton;
     dtChegada: TCalendarEdit;
     dtSaida: TCalendarEdit;
     memoObs: TMemo;
-    Label4: TLabel;
     edtDescricaoRapida: TEdit;
-    listBoxServicosRealizados: TListBox;
+    ReTanguloFundo: TRectangle;
+    pnlDescricaoRapida: TPanel;
+    btnAddServico: TButton;
     procedure btnAddServicoClick(Sender: TObject);
     procedure btnVoltarClick(Sender: TObject);
-    procedure listBoxServicosRealizadosItemClick(const Sender: TCustomListBox;
-      const Item: TListBoxItem);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
     { Private declarations }
   public
@@ -60,7 +59,7 @@ begin
 	frmServicos := TfrmServicos.Create(Self);
  end;
 	try
-	 frmServicos.ShowModal;
+	 frmServicos.Show;
   finally
 	 frmServicos.Free;
 	end;
@@ -71,7 +70,7 @@ end;
 
 procedure TfrmFormulario.btnVoltarClick(Sender: TObject);
 begin
- close;
+ Close;
 end;
 
 procedure TfrmFormulario.DesabilitaEdicao;
@@ -85,6 +84,11 @@ begin
  memoObs.ReadOnly            := True
 end;
 
+procedure TfrmFormulario.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+ FreeAndNil(frmFormulario);
+end;
+
 procedure TfrmFormulario.HabilitaEdicao;
 begin
  dtChegada.ReadOnly          := False;
@@ -94,19 +98,6 @@ begin
  edtDescricaoRapida.ReadOnly := False;
  btnAddServico.Enabled       := True;
  memoObs.ReadOnly            := False;
-end;
-
-procedure TfrmFormulario.listBoxServicosRealizadosItemClick(
-  const Sender: TCustomListBox; const Item: TListBoxItem);
-begin
- if btnAddServico.Enabled then
- begin
-  if MessageDlg('Deseja excluir o serviço?', TMsgDlgType.mtWarning, [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo], 0) = mrYes then
-  begin
-    listBoxServicosRealizados.Items.Delete(Item.Index);
-  end;
- end;
-
 end;
 
 procedure TfrmFormulario.NovaAcao;
@@ -128,7 +119,7 @@ begin
  edtDescricaoRapida.Text := Acao.DescricaoRapida;
  for i := 0to acao.listaServicosRealizados.Count - 1 do
  begin
-   listBoxServicosRealizados.Items.Add(Acao.listaServicosRealizados[i])
+   //Adicionar os itens na grid
  end;
  memoObs.Lines.Text := Acao.Observacoes;
 end;
