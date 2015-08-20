@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.DateTimeCtrls, FMX.StdCtrls, FMX.Layouts, System.Rtti, FMX.Grid,
   FMX.ListBox, FMX.Memo, FMX.Edit, FMX.ListView.Types, FMX.ListView, uAcao,uFrmservicos,
-  FMX.Objects;
+  FMX.Objects, uDmPrincipal;
 
 type
   TfrmFormulario = class(TForm)
@@ -21,8 +21,7 @@ type
     Label2: TLabel;
     HorasSaida: TTimeEdit;
     Label3: TLabel;
-    btnSalvar: TButton;
-    btnVoltar: TButton;
+    spdSalvar: TButton;
     dtChegada: TCalendarEdit;
     dtSaida: TCalendarEdit;
     memoObs: TMemo;
@@ -30,9 +29,13 @@ type
     ReTanguloFundo: TRectangle;
     pnlDescricaoRapida: TPanel;
     btnAddServico: TButton;
+    spdVoltar: TSpeedButton;
+    Label4: TLabel;
+    cbEdtCliente: TComboEdit;
     procedure btnAddServicoClick(Sender: TObject);
-    procedure btnVoltarClick(Sender: TObject);
+    procedure spdVoltarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure edtDescricaoRapidaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -68,7 +71,7 @@ begin
 
 end;
 
-procedure TfrmFormulario.btnVoltarClick(Sender: TObject);
+procedure TfrmFormulario.spdVoltarClick(Sender: TObject);
 begin
  Close;
 end;
@@ -82,6 +85,15 @@ begin
  edtDescricaoRapida.ReadOnly := True;
  btnAddServico.Enabled       := False;
  memoObs.ReadOnly            := True
+end;
+
+procedure TfrmFormulario.edtDescricaoRapidaClick(Sender: TObject);
+begin
+ if edtDescricaoRapida.Text.Contains('Descrição Rápida') then
+ begin
+   edtDescricaoRapida.Text := EmptyStr;
+ end;
+
 end;
 
 procedure TfrmFormulario.FormClose(Sender: TObject; var Action: TCloseAction);

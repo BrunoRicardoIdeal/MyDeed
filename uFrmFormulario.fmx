@@ -3,6 +3,7 @@ object frmFormulario: TfrmFormulario
   Top = 0
   ClientHeight = 508
   ClientWidth = 320
+  StyleBook = dmPrincipal.StyleBookRise
   StyleLookup = 'calloutpanelstyle'
   Visible = True
   FormFactor.Width = 320
@@ -16,52 +17,57 @@ object frmFormulario: TfrmFormulario
   DesignerOrientation = 0
   DesignerOSVersion = ''
   object Header: TToolBar
-    Height = 48.000000000000000000
+    Height = 44.000000000000000000
     TabOrder = 0
     Width = 320.000000000000000000
     object HeaderLabel: TLabel
+      StyledSettings = [ssFamily, ssSize, ssStyle]
       Height = 48.000000000000000000
       StyleLookup = 'toollabel'
       Text = 'Formul'#225'rio'
       Width = 177.000000000000000000
     end
-    object btnSalvar: TButton
+    object spdSalvar: TButton
       Align = alRight
-      Height = 48.000000000000000000
-      Position.X = 240.000000000000000000
-      StyleLookup = 'donetoolbutton'
-      TabOrder = 1
-      Text = 'Salvar'
-      Width = 80.000000000000000000
-    end
-    object btnVoltar: TButton
-      Align = alRight
-      Height = 48.000000000000000000
-      Position.X = 192.000000000000000000
-      StyleLookup = 'priortoolbutton'
+      Height = 44.000000000000000000
+      Position.X = 264.000000000000000000
+      StyleLookup = 'circlebuttonstyle'
       TabOrder = 0
-      Text = 'Voltar'
-      Width = 48.000000000000000000
-      OnClick = btnVoltarClick
+      Text = 'Salvar'
+      Width = 56.000000000000000000
+    end
+    object spdVoltar: TSpeedButton
+      Align = alRight
+      CanFocus = True
+      Height = 44.000000000000000000
+      Margins.Right = 20.000000000000000000
+      Position.X = 177.000000000000000000
+      StyleLookup = 'circlebuttonstyle'
+      Text = 'In'#237'cio'
+      Width = 67.000000000000000000
+      OnClick = spdVoltarClick
     end
   end
   object ReTanguloFundo: TRectangle
     Align = alClient
-    Fill.Color = claLightskyblue
-    Height = 460.000000000000000000
+    Fill.Color = claWhitesmoke
+    Height = 464.000000000000000000
     Width = 320.000000000000000000
     object scrollPrincipal: TVertScrollBox
-      Align = alClient
-      Height = 452.000000000000000000
+      Align = alTop
+      Height = 700.000000000000000000
       Margins.Left = 4.000000000000000000
       Margins.Top = 4.000000000000000000
       Margins.Right = 3.000000000000000000
       Margins.Bottom = 4.000000000000000000
+      Position.X = 4.000000000000000000
+      Position.Y = 4.000000000000000000
       TabOrder = 0
       Width = 313.000000000000000000
       object pnlDataHoraChegada: TPanel
         Align = alTop
         Height = 57.000000000000000000
+        Position.Y = 57.000000000000000000
         Width = 313.000000000000000000
         TabOrder = 1
         object Label1: TLabel
@@ -73,9 +79,9 @@ object frmFormulario: TfrmFormulario
         object HorasChegada: TTimeEdit
           Time = 0.638888888888888800
           Align = alLeft
-          Height = 32.000000000000000000
+          Height = 34.000000000000000000
           Position.X = 121.000000000000000000
-          Position.Y = 24.000000000000000000
+          Position.Y = 23.000000000000000000
           TabOrder = 1
           Width = 105.000000000000000000
         end
@@ -85,15 +91,15 @@ object frmFormulario: TfrmFormulario
           TabOrder = 2
           Cursor = crIBeam
           Date = 42234.000000000000000000
-          Height = 32.000000000000000000
-          Position.Y = 24.000000000000000000
+          Height = 34.000000000000000000
+          Position.Y = 23.000000000000000000
           Width = 121.000000000000000000
         end
       end
       object pnlDataHoraSaida: TPanel
         Align = alTop
         Height = 57.000000000000000000
-        Position.Y = 57.000000000000000000
+        Position.Y = 114.000000000000000000
         Width = 313.000000000000000000
         TabOrder = 0
         object Label2: TLabel
@@ -105,9 +111,9 @@ object frmFormulario: TfrmFormulario
         object HorasSaida: TTimeEdit
           Time = 0.638888888888888800
           Align = alLeft
-          Height = 32.000000000000000000
+          Height = 34.000000000000000000
           Position.X = 121.000000000000000000
-          Position.Y = 24.000000000000000000
+          Position.Y = 23.000000000000000000
           TabOrder = 1
           Width = 105.000000000000000000
         end
@@ -117,8 +123,8 @@ object frmFormulario: TfrmFormulario
           TabOrder = 2
           Cursor = crIBeam
           Date = 42234.000000000000000000
-          Height = 32.000000000000000000
-          Position.Y = 24.000000000000000000
+          Height = 34.000000000000000000
+          Position.Y = 23.000000000000000000
           Width = 121.000000000000000000
         end
       end
@@ -128,7 +134,7 @@ object frmFormulario: TfrmFormulario
         Height = 23.000000000000000000
         Margins.Top = 3.000000000000000000
         Margins.Bottom = 3.000000000000000000
-        Position.Y = 200.000000000000000000
+        Position.Y = 257.000000000000000000
         Text = 'Observa'#231#245'es:'
         Width = 313.000000000000000000
       end
@@ -137,7 +143,7 @@ object frmFormulario: TfrmFormulario
         Align = alTop
         Locked = True
         Height = 137.000000000000000000
-        Position.Y = 226.000000000000000000
+        Position.Y = 283.000000000000000000
         TabOrder = 3
         Width = 313.000000000000000000
         MaxLength = 400
@@ -147,28 +153,48 @@ object frmFormulario: TfrmFormulario
         Height = 31.000000000000000000
         Margins.Top = 4.000000000000000000
         Margins.Bottom = 4.000000000000000000
-        Position.Y = 118.000000000000000000
+        Position.Y = 175.000000000000000000
         Width = 313.000000000000000000
         TabOrder = 4
         object edtDescricaoRapida: TEdit
           Touch.InteractiveGestures = [igLongTap, igDoubleTap]
           Align = alClient
           TabOrder = 0
+          Text = 'Descri'#231#227'o R'#225'pida'
           Width = 313.000000000000000000
-          Height = 32.000000000000000000
+          Height = 31.000000000000000000
           TextPrompt = 'Descri'#231#227'o r'#225'pida'
           KillFocusByReturn = False
+          OnClick = edtDescricaoRapidaClick
         end
       end
       object btnAddServico: TButton
         Align = alTop
         Height = 44.000000000000000000
-        Position.Y = 153.000000000000000000
+        Position.Y = 210.000000000000000000
         TabOrder = 5
         Text = 'Servi'#231'os Realizados'
         Trimming = ttCharacter
         Width = 313.000000000000000000
         OnClick = btnAddServicoClick
+      end
+      object Label4: TLabel
+        Align = alTop
+        Height = 23.000000000000000000
+        Text = 'Cliente:'
+        Width = 313.000000000000000000
+        Trimming = ttCharacter
+      end
+      object cbEdtCliente: TComboEdit
+        Touch.InteractiveGestures = [igLongTap, igDoubleTap]
+        Align = alTop
+        TabOrder = 7
+        ItemHeight = 19.000000000000000000
+        ItemIndex = -1
+        Position.Y = 23.000000000000000000
+        Width = 313.000000000000000000
+        Height = 34.000000000000000000
+        KillFocusByReturn = False
       end
     end
   end

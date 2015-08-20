@@ -3,17 +3,17 @@ unit uDmPrincipal;
 interface
 
 uses
-  System.SysUtils, System.Classes, FireDAC.Stan.Intf, FireDAC.Stan.Option,
-  FireDAC.Stan.Error, FireDAC.UI.Intf, FireDAC.Phys.Intf, FireDAC.Stan.Def,
-  FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys, FireDAC.Phys.SQLite,
-  FireDAC.Stan.ExprFuncs, Data.DB, FireDAC.Comp.Client;
+  System.SysUtils, System.Classes, FMX.Types, FMX.Controls;
 
 type
   TdmPrincipal = class(TDataModule)
-    ConnLocal: TFDConnection;
+    StyleBookRise: TStyleBook;
+    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
+  const
+   CAMINHO_ARQUIVOS_MYDEED = 'storage\sdcard0\MyDeed';
     { Public declarations }
   end;
 
@@ -25,5 +25,10 @@ implementation
 {%CLASSGROUP 'FMX.Controls.TControl'}
 
 {$R *.dfm}
+
+procedure TdmPrincipal.DataModuleCreate(Sender: TObject);
+begin
+ ForceDirectories(CAMINHO_ARQUIVOS_MYDEED);
+end;
 
 end.

@@ -5,7 +5,7 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
-  FMX.StdCtrls, FMX.Edit, FMX.Header;
+  FMX.StdCtrls, FMX.Edit, FMX.Header, uDmPrincipal;
 
 type
   TfrmRegister = class(TForm)
@@ -17,10 +17,10 @@ type
     edtConfirmarSenha: TEdit;
     Header: TToolBar;
     HeaderLabel: TLabel;
-    btnSalvar: TButton;
-    btnCancelar: TButton;
     Label4: TLabel;
     edtCPF: TEdit;
+    spdCancelar: TSpeedButton;
+    spdSalvar: TSpeedButton;
   private
     { Private declarations }
   public

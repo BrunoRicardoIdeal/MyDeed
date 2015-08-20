@@ -1,75 +1,106 @@
 object frmServicos: TfrmServicos
   Left = 0
   Top = 0
-  Caption = 'Form1'
-  ClientHeight = 508
+  ClientHeight = 402
   ClientWidth = 320
+  StyleBook = dmPrincipal.StyleBookRise
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [dkDesktop, dkiPhone, dkiPad]
+  OnCreate = FormCreate
   OnClose = FormClose
   DesignerMobile = True
   DesignerWidth = 320
-  DesignerHeight = 533
-  DesignerDeviceName = 'Samsung Galaxy S2'
+  DesignerHeight = 427
+  DesignerDeviceName = '2.7 QVGA Android Phone'
   DesignerOrientation = 0
   DesignerOSVersion = ''
-  object pnlLateral: TPanel
-    Align = alRight
-    Height = 460.000000000000000000
-    Position.X = 288.000000000000000000
-    Position.Y = 48.000000000000000000
-    Width = 32.000000000000000000
-    TabOrder = 0
-  end
-  object grdServicos: TGrid
-    Align = alClient
-    Height = 460.000000000000000000
-    TabOrder = 1
-    Width = 288.000000000000000000
-    RowCount = 100
-    RowHeight = 21.000000000000000000
-    object ColunaServicos: TColumn
-      Height = 441.000000000000000000
-      TabOrder = 0
-      Width = 100.000000000000000000
-    end
-    object ColunaExcluirItem: TImageColumn
-      Height = 441.000000000000000000
-      Position.X = 100.000000000000000000
-      TabOrder = 1
-      Width = 60.000000000000000000
-    end
-  end
   object Header: TToolBar
     Height = 48.000000000000000000
-    TabOrder = 2
+    TabOrder = 0
     Width = 320.000000000000000000
     object cbServicos: TComboBox
       Align = alLeft
       DisableFocusEffect = False
-      Height = 32.000000000000000000
-      Position.Y = 8.000000000000000000
+      Height = 48.000000000000000000
+      ItemIndex = 0
       TabOrder = 0
-      Width = 201.000000000000000000
+      Width = 153.000000000000000000
+      object TListBoxItem
+        Height = 19.000000000000000000
+        IsSelected = True
+        Text = 'Troca de cabos'
+        Width = 19.000000000000000000
+      end
+      object TListBoxItem
+        Height = 19.000000000000000000
+        Text = 'troca '
+        Width = 19.000000000000000000
+      end
     end
     object spdAdd: TSpeedButton
       Align = alLeft
+      Font.Size = 30.000000000000000000
+      Font.Style = [fsBold]
+      StyledSettings = [ssFamily, ssFontColor]
       Height = 48.000000000000000000
-      Position.X = 201.000000000000000000
-      StyleLookup = 'additembutton'
-      Text = 'spdAdd'
+      Position.X = 153.000000000000000000
+      StyleLookup = 'buttonstyle'
+      Text = '+'
       Trimming = ttCharacter
       Width = 48.000000000000000000
+      OnClick = spdAddClick
     end
     object spdOk: TSpeedButton
       Align = alRight
+      Font.Style = [fsBold]
+      StyledSettings = [ssFamily, ssSize, ssFontColor]
       Height = 48.000000000000000000
       Position.X = 264.000000000000000000
-      StyleLookup = 'donetoolbutton'
+      StyleLookup = 'buttonstyle'
       Text = 'OK'
       Trimming = ttCharacter
       Width = 56.000000000000000000
+      OnClick = spdOkClick
+    end
+    object spdExcluir: TSpeedButton
+      Align = alLeft
+      Font.Size = 30.000000000000000000
+      Font.Style = [fsBold]
+      StyledSettings = [ssFamily, ssFontColor]
+      Height = 48.000000000000000000
+      Margins.Left = 4.000000000000000000
+      Position.X = 205.000000000000000000
+      StyleLookup = 'buttonstyle'
+      Text = '-'
+      Trimming = ttCharacter
+      Width = 48.000000000000000000
+      OnClick = spdExcluirClick
+    end
+  end
+  object ListBoxServicos: TListBox
+    Align = alTop
+    Height = 377.000000000000000000
+    Position.Y = 48.000000000000000000
+    TabOrder = 1
+    Width = 320.000000000000000000
+    DefaultItemStyles.ItemStyle = ''
+    DefaultItemStyles.GroupHeaderStyle = ''
+    DefaultItemStyles.GroupFooterStyle = ''
+    MultiSelect = True
+    ShowCheckboxes = True
+    object TListBoxItem
+      Height = 19.000000000000000000
+      StyleLookup = 'listboxitemnodetail'
+      Text = 'TESTE 1 '
+      Width = 318.000000000000000000
+    end
+    object TListBoxItem
+      Height = 19.000000000000000000
+      Position.Y = 19.000000000000000000
+      StyleLookup = 'listboxitemnodetail'
+      Text = 'TESTE 2'
+      Width = 318.000000000000000000
     end
   end
 end
