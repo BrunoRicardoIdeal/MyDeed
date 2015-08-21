@@ -13,7 +13,7 @@ type
     { Private declarations }
   public
   const
-   CAMINHO_ARQUIVOS_MYDEED = 'storage\sdcard0\MyDeed';
+   CAMINHO_ARQUIVOS_MYDEED = '/storage/sdcard0/MyDeed';
     { Public declarations }
   end;
 

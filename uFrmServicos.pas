@@ -20,7 +20,6 @@ type
     procedure spdOkClick(Sender: TObject);
     procedure spdAddClick(Sender: TObject);
     procedure CriarListaInicial;
-    procedure CarregaListaDoArquivo(CaminhoArquivo: String);
     procedure FormCreate(Sender: TObject);
     procedure spdExcluirClick(Sender: TObject);
   private
@@ -46,18 +45,7 @@ begin
  Close;
 end;
 
-procedure TfrmServicos.CarregaListaDoArquivo(CaminhoArquivo: String);
-var
- lLista : TStringList;
-begin
- lLista := TStringList.Create;
- try
-  lLista.LoadFromFile(CaminhoArquivo);
-  cbServicos.Items.Text := lLista.Text;
- finally
-   lLista.Free;
- end;
-end;
+
 
 procedure TfrmServicos.CriarListaInicial;
  var
@@ -97,8 +85,7 @@ begin
  begin
    CriarListaInicial;
  end;
- CarregaListaDoArquivo(CaminhoListaInicial);
-
+ cbServicos.Items.LoadFromFile(CaminhoListaInicial);
 
 end;
 
@@ -121,21 +108,23 @@ begin
 end;
 
 procedure TfrmServicos.spdExcluirClick(Sender: TObject);
-var
- i : Integer;
 begin
- for i := 0 to ListBoxServicos.Items.Count do
- begin
-   if TListBoxItem(ListBoxServicos.Items[i]).IsChecked then
-   begin
-    ListBoxServicos.Items.Delete(i);
-   end;
- end;
+if ListBoxServicos.ItemIndex <> -1 then
+begin
+  ListBoxServicos.Items.Delete(ListBoxServicos.ItemIndex);
+  ShowMessage('Serviço excluído!');
+end
+else
+begin
+  ShowMessage('Selecione um serviço antes de excluir!');
+  Exit;
+end;
+
 end;
 
 procedure TfrmServicos.spdOkClick(Sender: TObject);
 begin
- frmServicos.DisposeOf;
+ frmFormulario.Show;
 end;
 
 end.

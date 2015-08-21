@@ -15,7 +15,8 @@ uses
 
 begin
   Application.Initialize;
-  Application.CreateForm(TfrmFormulario, frmFormulario);
   Application.CreateForm(TdmPrincipal, dmPrincipal);
+  Application.CreateForm(TfrmPrincipal, frmPrincipal);
+
   Application.Run;
 end.

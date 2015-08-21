@@ -1,7 +1,7 @@
 object frmServicos: TfrmServicos
   Left = 0
   Top = 0
-  ClientHeight = 402
+  ClientHeight = 548
   ClientWidth = 320
   StyleBook = dmPrincipal.StyleBookRise
   FormFactor.Width = 320
@@ -11,30 +11,25 @@ object frmServicos: TfrmServicos
   OnClose = FormClose
   DesignerMobile = True
   DesignerWidth = 320
-  DesignerHeight = 427
-  DesignerDeviceName = '2.7 QVGA Android Phone'
-  DesignerOrientation = 0
+  DesignerHeight = 568
+  DesignerDeviceName = 'iPhone5'
+  DesignerOrientation = 2
   DesignerOSVersion = ''
   object Header: TToolBar
-    Height = 48.000000000000000000
+    Height = 41.000000000000000000
     TabOrder = 0
     Width = 320.000000000000000000
     object cbServicos: TComboBox
       Align = alLeft
       DisableFocusEffect = False
-      Height = 48.000000000000000000
+      Height = 41.000000000000000000
       ItemIndex = 0
       TabOrder = 0
       Width = 153.000000000000000000
       object TListBoxItem
         Height = 19.000000000000000000
         IsSelected = True
-        Text = 'Troca de cabos'
-        Width = 19.000000000000000000
-      end
-      object TListBoxItem
-        Height = 19.000000000000000000
-        Text = 'troca '
+        Text = 'teste'
         Width = 19.000000000000000000
       end
     end
@@ -43,9 +38,9 @@ object frmServicos: TfrmServicos
       Font.Size = 30.000000000000000000
       Font.Style = [fsBold]
       StyledSettings = [ssFamily, ssFontColor]
-      Height = 48.000000000000000000
+      Height = 41.000000000000000000
       Position.X = 153.000000000000000000
-      StyleLookup = 'buttonstyle'
+      StyleLookup = 'cornerbuttonstyle'
       Text = '+'
       Trimming = ttCharacter
       Width = 48.000000000000000000
@@ -55,9 +50,9 @@ object frmServicos: TfrmServicos
       Align = alRight
       Font.Style = [fsBold]
       StyledSettings = [ssFamily, ssSize, ssFontColor]
-      Height = 48.000000000000000000
+      Height = 41.000000000000000000
       Position.X = 264.000000000000000000
-      StyleLookup = 'buttonstyle'
+      StyleLookup = 'cornerbuttonstyle'
       Text = 'OK'
       Trimming = ttCharacter
       Width = 56.000000000000000000
@@ -68,10 +63,10 @@ object frmServicos: TfrmServicos
       Font.Size = 30.000000000000000000
       Font.Style = [fsBold]
       StyledSettings = [ssFamily, ssFontColor]
-      Height = 48.000000000000000000
+      Height = 41.000000000000000000
       Margins.Left = 4.000000000000000000
       Position.X = 205.000000000000000000
-      StyleLookup = 'buttonstyle'
+      StyleLookup = 'cornerbuttonstyle'
       Text = '-'
       Trimming = ttCharacter
       Width = 48.000000000000000000
@@ -79,28 +74,16 @@ object frmServicos: TfrmServicos
     end
   end
   object ListBoxServicos: TListBox
-    Align = alTop
-    Height = 377.000000000000000000
-    Position.Y = 48.000000000000000000
+    Align = alClient
+    Height = 495.000000000000000000
+    Margins.Left = 6.000000000000000000
+    Margins.Top = 6.000000000000000000
+    Margins.Right = 6.000000000000000000
+    Margins.Bottom = 6.000000000000000000
     TabOrder = 1
-    Width = 320.000000000000000000
+    Width = 308.000000000000000000
     DefaultItemStyles.ItemStyle = ''
     DefaultItemStyles.GroupHeaderStyle = ''
     DefaultItemStyles.GroupFooterStyle = ''
-    MultiSelect = True
-    ShowCheckboxes = True
-    object TListBoxItem
-      Height = 19.000000000000000000
-      StyleLookup = 'listboxitemnodetail'
-      Text = 'TESTE 1 '
-      Width = 318.000000000000000000
-    end
-    object TListBoxItem
-      Height = 19.000000000000000000
-      Position.Y = 19.000000000000000000
-      StyleLookup = 'listboxitemnodetail'
-      Text = 'TESTE 2'
-      Width = 318.000000000000000000
-    end
   end
 end

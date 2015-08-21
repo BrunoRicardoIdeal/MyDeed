@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.DateTimeCtrls, FMX.StdCtrls, FMX.Layouts, System.Rtti, FMX.Grid,
-  FMX.ListBox, FMX.Memo, FMX.Edit, FMX.ListView.Types, FMX.ListView, uAcao,uFrmservicos,
+  FMX.ListBox, FMX.Memo, FMX.Edit,FMX.Ani, FMX.ListView.Types, FMX.ListView, uAcao,uFrmservicos,
   FMX.Objects, uDmPrincipal;
 
 type
@@ -26,17 +26,30 @@ type
     dtSaida: TCalendarEdit;
     memoObs: TMemo;
     edtDescricaoRapida: TEdit;
-    ReTanguloFundo: TRectangle;
     pnlDescricaoRapida: TPanel;
     btnAddServico: TButton;
     spdVoltar: TSpeedButton;
     Label4: TLabel;
-    cbEdtCliente: TComboEdit;
+    cbCliente: TComboBox;
+    pnlLateral: TPanel;
     procedure btnAddServicoClick(Sender: TObject);
+    procedure edtDescricaoRapidaClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure CriarListaInicialClientes;
+    procedure FormVirtualKeyboardShown(Sender: TObject;
+      KeyboardVisible: Boolean; const Bounds: TRect);
+    procedure FormVirtualKeyboardHidden(Sender: TObject;
+      KeyboardVisible: Boolean; const Bounds: TRect);
+    procedure FormShow(Sender: TObject);
+    procedure edtDescricaoRapidaExit(Sender: TObject);
     procedure spdVoltarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure edtDescricaoRapidaClick(Sender: TObject);
+    procedure spdSalvarClick(Sender: TObject);
   private
+   var
+    CaminhoListaInicialClientes : String;
+    FTecladoShow : Boolean;
+    procedure ValidaEditVazioDescricao;
     { Private declarations }
   public
    procedure RecebeNoticia(Acao : TAcao);
@@ -51,29 +64,27 @@ var
 
 implementation
 
+  uses ufrmPrincipal;
 
 {$R *.fmx}
 
 procedure TfrmFormulario.btnAddServicoClick(Sender: TObject);
-
 begin
- if frmServicos = nil then
- begin
-	frmServicos := TfrmServicos.Create(Self);
- end;
-	try
 	 frmServicos.Show;
-  finally
-	 frmServicos.Free;
-	end;
-
-
-
 end;
 
-procedure TfrmFormulario.spdVoltarClick(Sender: TObject);
+procedure TfrmFormulario.CriarListaInicialClientes;
+ var
+  ListaInicial : TStringList;
 begin
- Close;
+ ListaInicial := TStringList.Create;
+ try
+  ListaInicial.Add('Ed. Excalibur');
+  ListaInicial.Add('Cond. Portal dos Lagos');
+  ListaInicial.SaveToFile(CaminhoListaInicialClientes);
+ finally
+   ListaInicial.Free;
+ end;
 end;
 
 procedure TfrmFormulario.DesabilitaEdicao;
@@ -89,16 +100,83 @@ end;
 
 procedure TfrmFormulario.edtDescricaoRapidaClick(Sender: TObject);
 begin
- if edtDescricaoRapida.Text.Contains('Descrição Rápida') then
+ if edtDescricaoRapida.Tag = 0 then
  begin
    edtDescricaoRapida.Text := EmptyStr;
  end;
 
+
+end;
+
+procedure TfrmFormulario.edtDescricaoRapidaExit(Sender: TObject);
+begin
+ ValidaEditVazioDescricao;
 end;
 
 procedure TfrmFormulario.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
- FreeAndNil(frmFormulario);
+ frmServicos.Free;
+end;
+
+procedure TfrmFormulario.FormCreate(Sender: TObject);
+begin
+ CaminhoListaInicialClientes := dmPrincipal.CAMINHO_ARQUIVOS_MYDEED + '/Clientes.txt';
+
+ if not FileExists(CaminhoListaInicialClientes) then
+ begin
+   CriarListaInicialClientes;
+ end;
+ cbCliente.Items.LoadFromFile(CaminhoListaInicialClientes);
+ edtDescricaoRapida.Tag := 1; //Edit sem a descrição auxiliar em cor menos visível
+
+ if frmServicos = nil then
+ begin
+	frmServicos := TfrmServicos.Create(Self);
+ end;
+
+end;
+
+procedure TfrmFormulario.FormShow(Sender: TObject);
+begin
+ ValidaEditVazioDescricao;
+end;
+
+procedure TfrmFormulario.FormVirtualKeyboardHidden(Sender: TObject;
+  KeyboardVisible: Boolean; const Bounds: TRect);
+begin
+ FTecladoShow := false;
+  if not KeyboardVisible then
+  begin
+   AnimateFloat('Padding.Top', 0, 0.1);
+  end;
+end;
+
+procedure TfrmFormulario.FormVirtualKeyboardShown(Sender: TObject;
+  KeyboardVisible: Boolean; const Bounds: TRect);
+var
+     O: TFMXObject;
+begin
+{ Mover o controle onde se digita algo para cima do teclado, para se poder ver
+ o que é digitado }
+ FTecladoShow := true;
+ if Assigned(Focused) and (Focused.GetObject is TControl) then
+ begin
+  if TControl(Focused).AbsoluteRect.Bottom - Padding.Top >= (Bounds.Top ) then
+  begin
+   for O in Children do
+   begin
+    if (O is TFloatAnimation) and (TFloatAnimation(O).PropertyName = 'Padding.Top') then
+    begin
+     TFloatAnimation(O).StopAtCurrent;
+    end;
+    AnimateFloat('Padding.Top',Bounds.Top -  TControl(Focused).AbsoluteRect.Bottom + Padding.Top, 0.1)
+   end;
+  end;
+ end
+ else
+ begin
+  AnimateFloat('Padding.Top', 0, 0.1);
+ end;
 end;
 
 procedure TfrmFormulario.HabilitaEdicao;
@@ -118,6 +196,7 @@ begin
  HorasChegada.Time := now;
  dtSaida.Date      := now;
  HorasSaida.Time   := now;
+
 end;
 
 procedure TfrmFormulario.RecebeNoticia(Acao: TAcao);
@@ -134,6 +213,47 @@ begin
    //Adicionar os itens na grid
  end;
  memoObs.Lines.Text := Acao.Observacoes;
+end;
+
+procedure TfrmFormulario.spdSalvarClick(Sender: TObject);
+begin
+ if frmServicos.ListBoxServicos.Items.Count = 0 then
+ begin
+   if MessageDlg('Não há informação sobre quais serviços foram realizados, deseja salvar assim mesmo?'
+      , TMsgDlgType.mtWarning, [TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo], 0) = mrYes then
+   begin
+    ShowMessage('Salvo com sucesso!');
+    frmPrincipal.Show;
+   end
+   else
+   begin
+
+   end;
+
+
+
+
+ end;
+end;
+
+procedure TfrmFormulario.spdVoltarClick(Sender: TObject);
+begin
+ frmPrincipal.Show;
+end;
+
+procedure TfrmFormulario.ValidaEditVazioDescricao;
+begin
+ if edtDescricaoRapida.Text.IsEmpty then
+ begin
+   edtDescricaoRapida.Text      := 'Insira uma descrição rápida';
+   edtDescricaoRapida.FontColor := TAlphaColorRec.DarkGray;
+   edtDescricaoRapida.Tag       := 0;   //Edit com o texto auxiliar
+ end
+ else
+ begin
+  edtDescricaoRapida.FontColor := TAlphaColorRec.Black;
+  edtDescricaoRapida.Tag       := 1;
+ end;
 end;
 
 end.

@@ -12,7 +12,6 @@ type
     VertScrollBoxFundo: TVertScrollBox;
     pnlTitulo: TPanel;
     lblTitulo: TLabel;
-    StyleBookFeed: TStyleBook;
     CallPnlNoticiaPrincipal: TCalloutPanel;
     pnlNoticiaBot: TPanel;
     lblDescricao: TLabel;
@@ -25,7 +24,10 @@ type
     lblCodigo: TLabel;
     LineSeparador: TLine;
     tmrAtualizaFeed: TTimer;
+    lblNomeEmpresa: TLabel;
+    imgLogoEmpresa: TImage;
     procedure tmrAtualizaFeedTimer(Sender: TObject);
+    procedure pnlNoticiaTopClick(Sender: TObject);
   private
     { Private declarations }
    procedure AbrirNoticia(Sender : TObject; PertenceAoUsuario:boolean);  // método que será atribuído para os novos paineis
@@ -81,6 +83,15 @@ end;
 
 
 
+
+procedure TfrmPrincipal.pnlNoticiaTopClick(Sender: TObject);
+begin
+ if frmFormulario = nil then
+ begin
+   frmFormulario := TfrmFormulario.Create(Self);
+ end;
+ frmFormulario.Show;
+end;
 
 procedure TfrmPrincipal.tmrAtualizaFeedTimer(Sender: TObject);
 begin
