@@ -9,7 +9,6 @@ object frmFormulario: TfrmFormulario
   FormFactor.Height = 480
   FormFactor.Devices = [dkDesktop, dkiPhone, dkiPad]
   OnCreate = FormCreate
-  OnClose = FormClose
   OnShow = FormShow
   OnVirtualKeyboardShown = FormVirtualKeyboardShown
   OnVirtualKeyboardHidden = FormVirtualKeyboardHidden
@@ -30,7 +29,7 @@ object frmFormulario: TfrmFormulario
       FontColor = xFF2A89DD
       StyledSettings = []
       Height = 44.000000000000000000
-      Text = 'Edi'#231#227'o'
+      Text = 'Informa'#231#245'es'
       TextAlign = taCenter
       Width = 205.000000000000000000
       WordWrap = False
@@ -75,14 +74,14 @@ object frmFormulario: TfrmFormulario
       Align = alTop
       Height = 57.000000000000000000
       Position.Y = 57.000000000000000000
-      Width = 291.000000000000000000
+      Width = 275.000000000000000000
       TabOrder = 1
       object Label1: TLabel
         Align = alTop
         FontColor = claWhite
         Height = 23.000000000000000000
         Text = 'Chegada:'
-        Width = 291.000000000000000000
+        Width = 275.000000000000000000
       end
       object HorasChegada: TTimeEdit
         Time = 0.638888888888888800
@@ -110,14 +109,14 @@ object frmFormulario: TfrmFormulario
       Align = alTop
       Height = 57.000000000000000000
       Position.Y = 114.000000000000000000
-      Width = 291.000000000000000000
+      Width = 275.000000000000000000
       TabOrder = 0
       object Label2: TLabel
         Align = alTop
         FontColor = claWhite
         Height = 23.000000000000000000
         Text = 'Sa'#237'da:'
-        Width = 291.000000000000000000
+        Width = 275.000000000000000000
       end
       object HorasSaida: TTimeEdit
         Time = 0.638888888888888800
@@ -148,20 +147,20 @@ object frmFormulario: TfrmFormulario
       Height = 23.000000000000000000
       Margins.Top = 3.000000000000000000
       Margins.Bottom = 3.000000000000000000
-      Position.Y = 257.000000000000000000
+      Position.Y = 332.000000000000000000
       Text = 'Observa'#231#245'es:'
-      Width = 291.000000000000000000
+      Width = 275.000000000000000000
     end
     object memoObs: TMemo
       Touch.InteractiveGestures = [igPan, igLongTap, igDoubleTap]
       Align = alTop
-      Locked = True
       Height = 137.000000000000000000
-      Position.Y = 283.000000000000000000
+      Position.Y = 358.000000000000000000
       TabOrder = 3
-      Width = 291.000000000000000000
+      Width = 275.000000000000000000
       MaxLength = 400
       Font.Size = 16.000000000000000000
+      WordWrap = True
       StyledSettings = []
     end
     object pnlDescricaoRapida: TPanel
@@ -170,7 +169,7 @@ object frmFormulario: TfrmFormulario
       Margins.Top = 4.000000000000000000
       Margins.Bottom = 4.000000000000000000
       Position.Y = 175.000000000000000000
-      Width = 291.000000000000000000
+      Width = 275.000000000000000000
       TabOrder = 4
       object edtDescricaoRapida: TEdit
         Touch.InteractiveGestures = [igLongTap, igDoubleTap]
@@ -178,25 +177,31 @@ object frmFormulario: TfrmFormulario
         TabOrder = 0
         Font.Size = 16.000000000000000000
         FontColor = claDarkgray
-        Width = 291.000000000000000000
+        Width = 193.000000000000000000
         Height = 31.000000000000000000
         StyledSettings = []
         KillFocusByReturn = True
         OnClick = edtDescricaoRapidaClick
         OnExit = edtDescricaoRapidaExit
       end
+      object lblDescricao: TLabel
+        Align = alMostLeft
+        Height = 31.000000000000000000
+        Text = 'Descri'#231#227'o:'
+        Width = 82.000000000000000000
+        Trimming = ttCharacter
+      end
     end
     object btnAddServico: TButton
       Align = alTop
-      CanFocus = False
       Default = True
       StyledSettings = [ssFamily, ssSize, ssStyle, ssFontColor, ssOther]
       Height = 44.000000000000000000
-      Position.Y = 210.000000000000000000
+      Position.Y = 241.000000000000000000
       TabOrder = 5
       Text = ' '#9830' Servi'#231'os Realizados'
       Trimming = ttCharacter
-      Width = 291.000000000000000000
+      Width = 275.000000000000000000
       OnClick = btnAddServicoClick
     end
     object Label4: TLabel
@@ -204,7 +209,7 @@ object frmFormulario: TfrmFormulario
       FontColor = claWhite
       Height = 23.000000000000000000
       Text = 'Cliente:'
-      Width = 291.000000000000000000
+      Width = 275.000000000000000000
       Trimming = ttCharacter
     end
     object cbCliente: TComboBox
@@ -214,26 +219,61 @@ object frmFormulario: TfrmFormulario
       ItemHeight = 19.000000000000000000
       Position.Y = 23.000000000000000000
       TabOrder = 7
-      Width = 291.000000000000000000
-      object TListBoxItem
-        Height = 19.000000000000000000
-        Text = 'Cliente 1'
-        Width = 311.000000000000000000
-      end
-      object TListBoxItem
-        Height = 19.000000000000000000
-        Position.Y = 19.000000000000000000
-        Text = 'Cliente 2'
-        Width = 311.000000000000000000
-      end
+      Width = 275.000000000000000000
     end
     object pnlLateral: TPanel
       Align = alMostRight
-      Height = 496.000000000000000000
+      Height = 540.000000000000000000
       Opacity = 0.000000000000000000
-      Position.X = 291.000000000000000000
+      Position.X = 275.000000000000000000
       Width = 22.000000000000000000
       TabOrder = 8
+    end
+    object lblAutor: TLabel
+      Align = alTop
+      Height = 45.000000000000000000
+      Position.Y = 495.000000000000000000
+      Text = 'Autor :'
+      Width = 275.000000000000000000
+      Trimming = ttCharacter
+    end
+    object pnlOrdemDeServico: TPanel
+      Align = alTop
+      Height = 31.000000000000000000
+      Position.Y = 210.000000000000000000
+      Width = 275.000000000000000000
+      TabOrder = 10
+      object edtNumOrdemServico: TEdit
+        Touch.InteractiveGestures = [igLongTap, igDoubleTap]
+        Align = alTop
+        TabOrder = 0
+        Position.X = 82.000000000000000000
+        Width = 193.000000000000000000
+        Height = 30.000000000000000000
+        StyledSettings = []
+        KillFocusByReturn = False
+        OnClick = edtNumOrdemServicoClick
+        OnExit = edtNumOrdemServicoExit
+      end
+      object lblNumOrdemServico: TLabel
+        Align = alMostLeft
+        Height = 31.000000000000000000
+        Text = 'N'#176'O.S.:'
+        Width = 82.000000000000000000
+        Trimming = ttCharacter
+      end
+    end
+    object btnMensagens: TButton
+      Align = alTop
+      Default = True
+      StyledSettings = [ssFamily, ssSize, ssStyle, ssFontColor, ssOther]
+      Height = 44.000000000000000000
+      Position.Y = 285.000000000000000000
+      TabOrder = 11
+      Text = ' '#9830' Mensagens'
+      Trimming = ttCharacter
+      Width = 275.000000000000000000
+      OnClick = btnAddServicoClick
     end
   end
 end

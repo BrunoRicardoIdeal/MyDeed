@@ -13,6 +13,9 @@ private
 
 public
 
+ constructor Create;
+ destructor  Destroy;override;
+
  var
  CodAcao : Integer;
  dtChegada :TDate;
@@ -23,10 +26,27 @@ public
  codServicosRealizados : array of Integer;
  listaServicosRealizados : TStringList;
  Observacoes : String;
+ Autor : String;
+ Cliente : String;
+ NumOrdemServico: Integer
 
 end;
 
 
 implementation
+
+{ TAcao }
+
+constructor TAcao.Create;
+begin
+ inherited;
+ listaServicosRealizados := TStringList.Create;
+end;
+
+destructor TAcao.Destroy;
+begin
+ inherited;
+ listaServicosRealizados.Free;
+end;
 
 end.

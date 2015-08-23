@@ -23,15 +23,8 @@ object frmServicos: TfrmServicos
       Align = alLeft
       DisableFocusEffect = False
       Height = 41.000000000000000000
-      ItemIndex = 0
       TabOrder = 0
       Width = 153.000000000000000000
-      object TListBoxItem
-        Height = 19.000000000000000000
-        IsSelected = True
-        Text = 'teste'
-        Width = 19.000000000000000000
-      end
     end
     object spdAdd: TSpeedButton
       Align = alLeft

@@ -42,7 +42,8 @@ implementation
 
 procedure TfrmServicos.btnVoltarClick(Sender: TObject);
 begin
- Close;
+
+ frmFormulario.Show;
 end;
 
 
@@ -53,9 +54,9 @@ procedure TfrmServicos.CriarListaInicial;
 begin
  ListaInicial := TStringList.Create;
  try
-  ListaInicial.Add('PRIMEIRO ITEM');
-  ListaInicial.Add('SEGUNDO ITEM');
-  ListaInicial.Add('TERCEIRO ITEM');
+  ListaInicial.Add('Troca de Cabos ');
+  ListaInicial.Add('Troca de Botões');
+  ListaInicial.Add('Troca de Espelho');
   ListaInicial.SaveToFile(CaminhoListaInicial);
  finally
    ListaInicial.Free;
@@ -80,7 +81,7 @@ end;
 procedure TfrmServicos.FormCreate(Sender: TObject);
 begin
 
- CaminhoListaInicial := dmPrincipal.CAMINHO_ARQUIVOS_MYDEED + '\Servicos.txt';
+ CaminhoListaInicial := dmPrincipal.CAMINHO_ARQUIVOS_MYDEED + '/Servicos.txt';
  if not FileExists(CaminhoListaInicial) then
  begin
    CriarListaInicial;
@@ -124,6 +125,7 @@ end;
 
 procedure TfrmServicos.spdOkClick(Sender: TObject);
 begin
+
  frmFormulario.Show;
 end;
 

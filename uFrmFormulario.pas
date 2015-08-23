@@ -25,13 +25,19 @@ type
     dtChegada: TCalendarEdit;
     dtSaida: TCalendarEdit;
     memoObs: TMemo;
-    edtDescricaoRapida: TEdit;
     pnlDescricaoRapida: TPanel;
     btnAddServico: TButton;
     spdVoltar: TSpeedButton;
     Label4: TLabel;
     cbCliente: TComboBox;
     pnlLateral: TPanel;
+    lblAutor: TLabel;
+    pnlOrdemDeServico: TPanel;
+    edtDescricaoRapida: TEdit;
+    edtNumOrdemServico: TEdit;
+    lblDescricao: TLabel;
+    lblNumOrdemServico: TLabel;
+    btnMensagens: TButton;
     procedure btnAddServicoClick(Sender: TObject);
     procedure edtDescricaoRapidaClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -43,13 +49,15 @@ type
     procedure FormShow(Sender: TObject);
     procedure edtDescricaoRapidaExit(Sender: TObject);
     procedure spdVoltarClick(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure spdSalvarClick(Sender: TObject);
+    procedure edtNumOrdemServicoClick(Sender: TObject);
+    procedure edtNumOrdemServicoExit(Sender: TObject);
   private
    var
     CaminhoListaInicialClientes : String;
     FTecladoShow : Boolean;
     procedure ValidaEditVazioDescricao;
+    procedure ValidaEditVazuiNumOrdServico;
     { Private declarations }
   public
    procedure RecebeNoticia(Acao : TAcao);
@@ -70,7 +78,11 @@ implementation
 
 procedure TfrmFormulario.btnAddServicoClick(Sender: TObject);
 begin
-	 frmServicos.Show;
+ if frmServicos = nil then
+ begin
+   frmServicos := TfrmServicos.Create(Self);
+ end;
+ frmServicos.Show;
 end;
 
 procedure TfrmFormulario.CriarListaInicialClientes;
@@ -95,7 +107,8 @@ begin
  HorasSaida.ReadOnly         := True;
  edtDescricaoRapida.ReadOnly := True;
  btnAddServico.Enabled       := False;
- memoObs.ReadOnly            := True
+ memoObs.ReadOnly            := True;
+ cbCliente.Enabled           := False;
 end;
 
 procedure TfrmFormulario.edtDescricaoRapidaClick(Sender: TObject);
@@ -104,8 +117,6 @@ begin
  begin
    edtDescricaoRapida.Text := EmptyStr;
  end;
-
-
 end;
 
 procedure TfrmFormulario.edtDescricaoRapidaExit(Sender: TObject);
@@ -113,9 +124,18 @@ begin
  ValidaEditVazioDescricao;
 end;
 
-procedure TfrmFormulario.FormClose(Sender: TObject; var Action: TCloseAction);
+procedure TfrmFormulario.edtNumOrdemServicoClick(Sender: TObject);
 begin
- frmServicos.Free;
+ if edtDescricaoRapida.Tag = 0 then
+ begin
+   edtDescricaoRapida.Text := EmptyStr;
+ end;
+
+end;
+
+procedure TfrmFormulario.edtNumOrdemServicoExit(Sender: TObject);
+begin
+ ValidaEditVazuiNumOrdServico;
 end;
 
 procedure TfrmFormulario.FormCreate(Sender: TObject);
@@ -139,6 +159,7 @@ end;
 procedure TfrmFormulario.FormShow(Sender: TObject);
 begin
  ValidaEditVazioDescricao;
+ ValidaEditVazuiNumOrdServico;
 end;
 
 procedure TfrmFormulario.FormVirtualKeyboardHidden(Sender: TObject;
@@ -188,6 +209,7 @@ begin
  edtDescricaoRapida.ReadOnly := False;
  btnAddServico.Enabled       := True;
  memoObs.ReadOnly            := False;
+ cbCliente.Enabled           := True;
 end;
 
 procedure TfrmFormulario.NovaAcao;
@@ -200,19 +222,16 @@ begin
 end;
 
 procedure TfrmFormulario.RecebeNoticia(Acao: TAcao);
-var
- i : integer;
 begin
- dtChegada.Date          := Acao.dtChegada;
- HorasChegada.Time       := Acao.hsChegada;
- dtSaida.Date            := Acao.dtSaida;
- HorasSaida.Time         := Acao.hsSaida;
- edtDescricaoRapida.Text := Acao.DescricaoRapida;
- for i := 0to acao.listaServicosRealizados.Count - 1 do
- begin
-   //Adicionar os itens na grid
- end;
- memoObs.Lines.Text := Acao.Observacoes;
+ dtChegada.Date                         := Acao.dtChegada;
+ HorasChegada.Time                      := Acao.hsChegada;
+ dtSaida.Date                           := Acao.dtSaida;
+ HorasSaida.Time                        := Acao.hsSaida;
+ edtDescricaoRapida.Text                := Acao.DescricaoRapida;
+ frmServicos.ListBoxServicos.Items.Text := Acao.listaServicosRealizados.Text;
+ lblAutor.Text                          := 'Autor : ' + Acao.Autor;
+ memoObs.Lines.Text                     := Acao.Observacoes;
+ cbCliente.ItemIndex                    := cbCliente.Items.IndexOf(Acao.Cliente);
 end;
 
 procedure TfrmFormulario.spdSalvarClick(Sender: TObject);
@@ -253,6 +272,21 @@ begin
  begin
   edtDescricaoRapida.FontColor := TAlphaColorRec.Black;
   edtDescricaoRapida.Tag       := 1;
+ end;
+end;
+
+procedure TfrmFormulario.ValidaEditVazuiNumOrdServico;
+begin
+  if edtNumOrdemServico.Text.IsEmpty then
+ begin
+   edtNumOrdemServico.Text      := 'Insira o número da ordem de serviço';
+   edtNumOrdemServico.FontColor := TAlphaColorRec.DarkGray;
+   edtNumOrdemServico.Tag       := 0;   //Edit com o texto auxiliar
+ end
+ else
+ begin
+  edtNumOrdemServico.FontColor := TAlphaColorRec.Black;
+  edtNumOrdemServico.Tag       := 1;
  end;
 end;
 
