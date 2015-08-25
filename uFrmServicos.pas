@@ -5,23 +5,25 @@ interface
 uses
   System.SysUtils, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
-  System.Rtti, FMX.Grid, FMX.Layouts, FMX.StdCtrls, FMX.ListBox,uDmPrincipal;
+  System.Rtti, FMX.Grid, FMX.Layouts, FMX.StdCtrls, FMX.ListBox,uDmPrincipal,
+  FMX.Objects;
 
 type
   TfrmServicos = class(TForm)
     Header: TToolBar;
     cbServicos: TComboBox;
-    spdAdd: TSpeedButton;
-    spdOk: TSpeedButton;
     ListBoxServicos: TListBox;
-    spdExcluir: TSpeedButton;
+    imgSalvar: TImage;
+    imgExcluir: TImage;
+    imgAdicionar: TImage;
     procedure btnVoltarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure spdOkClick(Sender: TObject);
     procedure spdAddClick(Sender: TObject);
     procedure CriarListaInicial;
     procedure FormCreate(Sender: TObject);
-    procedure spdExcluirClick(Sender: TObject);
+    procedure imgSalvarClick(Sender: TObject);
+    procedure imgExcluirClick(Sender: TObject);
+    procedure imgAdicionarClick(Sender: TObject);
   private
     function ExisteItem :Boolean;
     var
@@ -90,7 +92,7 @@ begin
 
 end;
 
-procedure TfrmServicos.spdAddClick(Sender: TObject);
+procedure TfrmServicos.imgAdicionarClick(Sender: TObject);
 begin
  if not ExisteItem then
  begin
@@ -108,7 +110,7 @@ begin
  end;
 end;
 
-procedure TfrmServicos.spdExcluirClick(Sender: TObject);
+procedure TfrmServicos.imgExcluirClick(Sender: TObject);
 begin
 if ListBoxServicos.ItemIndex <> -1 then
 begin
@@ -120,13 +122,29 @@ begin
   ShowMessage('Selecione um serviço antes de excluir!');
   Exit;
 end;
-
 end;
 
-procedure TfrmServicos.spdOkClick(Sender: TObject);
+procedure TfrmServicos.imgSalvarClick(Sender: TObject);
 begin
+  frmFormulario.Show;
+end;
 
- frmFormulario.Show;
+procedure TfrmServicos.spdAddClick(Sender: TObject);
+begin
+ if not ExisteItem then
+ begin
+  ListBoxServicos.Items.Add(cbServicos.Items[cbServicos.ItemIndex]);
+ end
+ else if cbServicos.Items[cbServicos.ItemIndex].IsEmpty then
+ begin
+  ShowMessage('Selecione um serviço!');
+  Exit;
+ end
+ else
+ begin
+   ShowMessage('Serviço já inserido!');
+   Exit;
+ end;
 end;
 
 end.

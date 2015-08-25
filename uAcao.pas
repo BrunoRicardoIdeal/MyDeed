@@ -3,7 +3,7 @@ unit uAcao;
 interface
 
 uses
-  System.Classes;
+  System.Classes,uMensagem,Generics.Collections;
 
 type TAcao = class(TObject)
 
@@ -28,7 +28,8 @@ public
  Observacoes : String;
  Autor : String;
  Cliente : String;
- NumOrdemServico: Integer
+ NumOrdemServico: Integer;
+ Mensagens : TDictionary<Integer,TMensagem>;
 
 end;
 
@@ -41,12 +42,14 @@ constructor TAcao.Create;
 begin
  inherited;
  listaServicosRealizados := TStringList.Create;
+ Mensagens := TDictionary<Integer,TMensagem>.Create;
 end;
 
 destructor TAcao.Destroy;
 begin
  inherited;
  listaServicosRealizados.Free;
+ Mensagens.Free;
 end;
 
 end.

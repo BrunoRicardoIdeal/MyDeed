@@ -1,7 +1,4 @@
-﻿[spdOk]
-Coordinates=10,254,51,58
-
-[cbServicos]
+﻿[cbServicos]
 Coordinates=127,10,101,124
 Visible=True
 
@@ -11,12 +8,6 @@ Coordinates=10,10,107,168
 [Header]
 Coordinates=139,254,56,36
 
-[spdAdd]
-Coordinates=71,254,58,58
-
-[spdExcluir]
-Coordinates=238,10,74,58
-
 []
-Coordinates=136,153,91,36
+Coordinates=71,254,58,58
 

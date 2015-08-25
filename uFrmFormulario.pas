@@ -7,7 +7,7 @@ uses
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.DateTimeCtrls, FMX.StdCtrls, FMX.Layouts, System.Rtti, FMX.Grid,
   FMX.ListBox, FMX.Memo, FMX.Edit,FMX.Ani, FMX.ListView.Types, FMX.ListView, uAcao,uFrmservicos,
-  FMX.Objects, uDmPrincipal;
+  FMX.Objects, uDmPrincipal, FMX.Effects;
 
 type
   TfrmFormulario = class(TForm)
@@ -21,13 +21,11 @@ type
     Label2: TLabel;
     HorasSaida: TTimeEdit;
     Label3: TLabel;
-    spdSalvar: TButton;
     dtChegada: TCalendarEdit;
     dtSaida: TCalendarEdit;
     memoObs: TMemo;
     pnlDescricaoRapida: TPanel;
     btnAddServico: TButton;
-    spdVoltar: TSpeedButton;
     Label4: TLabel;
     cbCliente: TComboBox;
     pnlLateral: TPanel;
@@ -38,6 +36,13 @@ type
     lblDescricao: TLabel;
     lblNumOrdemServico: TLabel;
     btnMensagens: TButton;
+    imgSalvar: TImage;
+    imgVoltar: TImage;
+    imgAddServico: TImage;
+    imgMensagem: TImage;
+    lblEquipamento: TLabel;
+    pnlEquipamento: TPanel;
+    edtEquip: TEdit;
     procedure btnAddServicoClick(Sender: TObject);
     procedure edtDescricaoRapidaClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -48,20 +53,21 @@ type
       KeyboardVisible: Boolean; const Bounds: TRect);
     procedure FormShow(Sender: TObject);
     procedure edtDescricaoRapidaExit(Sender: TObject);
-    procedure spdVoltarClick(Sender: TObject);
-    procedure spdSalvarClick(Sender: TObject);
     procedure edtNumOrdemServicoClick(Sender: TObject);
     procedure edtNumOrdemServicoExit(Sender: TObject);
+    procedure imgSalvarClick(Sender: TObject);
+    procedure imgVoltarClick(Sender: TObject);
   private
    var
     CaminhoListaInicialClientes : String;
     FTecladoShow : Boolean;
     procedure ValidaEditVazioDescricao;
     procedure ValidaEditVazuiNumOrdServico;
+    procedure UpdateKBBounds;
     { Private declarations }
   public
    procedure RecebeNoticia(Acao : TAcao);
-   procedure NovaAcao;
+   procedure NovaNoticia;
    procedure HabilitaEdicao;
    procedure DesabilitaEdicao;
     { Public declarations }
@@ -109,6 +115,8 @@ begin
  btnAddServico.Enabled       := False;
  memoObs.ReadOnly            := True;
  cbCliente.Enabled           := False;
+ btnMensagens.Enabled        := False;
+ edtNumOrdemServico.ReadOnly := True;
 end;
 
 procedure TfrmFormulario.edtDescricaoRapidaClick(Sender: TObject);
@@ -182,7 +190,7 @@ begin
  FTecladoShow := true;
  if Assigned(Focused) and (Focused.GetObject is TControl) then
  begin
-  if TControl(Focused).AbsoluteRect.Bottom - Padding.Top >= (Bounds.Top ) then
+  if TControl(Focused).AbsoluteRect.Bottom - Padding.Top >= (Bounds.Top) then
   begin
    for O in Children do
    begin
@@ -190,7 +198,7 @@ begin
     begin
      TFloatAnimation(O).StopAtCurrent;
     end;
-    AnimateFloat('Padding.Top',Bounds.Top -  TControl(Focused).AbsoluteRect.Bottom + Padding.Top, 0.1)
+    AnimateFloat('Padding.Top',Bounds.Top -  (TControl(Focused).AbsoluteRect.Bottom + Padding.Top) , 0.1)
    end;
   end;
  end
@@ -210,31 +218,11 @@ begin
  btnAddServico.Enabled       := True;
  memoObs.ReadOnly            := False;
  cbCliente.Enabled           := True;
+ btnMensagens.Enabled        := True;
+ edtNumOrdemServico.ReadOnly := False;
 end;
 
-procedure TfrmFormulario.NovaAcao;
-begin
- dtChegada.Date    := now;
- HorasChegada.Time := now;
- dtSaida.Date      := now;
- HorasSaida.Time   := now;
-
-end;
-
-procedure TfrmFormulario.RecebeNoticia(Acao: TAcao);
-begin
- dtChegada.Date                         := Acao.dtChegada;
- HorasChegada.Time                      := Acao.hsChegada;
- dtSaida.Date                           := Acao.dtSaida;
- HorasSaida.Time                        := Acao.hsSaida;
- edtDescricaoRapida.Text                := Acao.DescricaoRapida;
- frmServicos.ListBoxServicos.Items.Text := Acao.listaServicosRealizados.Text;
- lblAutor.Text                          := 'Autor : ' + Acao.Autor;
- memoObs.Lines.Text                     := Acao.Observacoes;
- cbCliente.ItemIndex                    := cbCliente.Items.IndexOf(Acao.Cliente);
-end;
-
-procedure TfrmFormulario.spdSalvarClick(Sender: TObject);
+procedure TfrmFormulario.imgSalvarClick(Sender: TObject);
 begin
  if frmServicos.ListBoxServicos.Items.Count = 0 then
  begin
@@ -255,9 +243,63 @@ begin
  end;
 end;
 
-procedure TfrmFormulario.spdVoltarClick(Sender: TObject);
+procedure TfrmFormulario.imgVoltarClick(Sender: TObject);
 begin
  frmPrincipal.Show;
+end;
+
+procedure TfrmFormulario.NovaNoticia;
+begin
+ dtChegada.Date    := now;
+ HorasChegada.Time := now;
+ dtSaida.Date      := now;
+ HorasSaida.Time   := now;
+ cbCliente.ItemIndex := -1;
+ edtDescricaoRapida.Text := EmptyStr;
+ edtNumOrdemServico.Text := EmptyStr;
+ memoObs.lines.Text  := EmptyStr;
+ lblAutor.Text := 'Autor: ' + dmPrincipal.NomeUsuarioLogado;
+
+end;
+
+procedure TfrmFormulario.RecebeNoticia(Acao: TAcao);
+begin
+ dtChegada.Date                         := Acao.dtChegada;
+ HorasChegada.Time                      := Acao.hsChegada;
+ dtSaida.Date                           := Acao.dtSaida;
+ HorasSaida.Time                        := Acao.hsSaida;
+ edtDescricaoRapida.Text                := Acao.DescricaoRapida;
+ frmServicos.ListBoxServicos.Items.Text := Acao.listaServicosRealizados.Text;
+ lblAutor.Text                          := 'Autor : ' + Acao.Autor;
+ memoObs.Lines.Text                     := Acao.Observacoes;
+ cbCliente.ItemIndex                    := cbCliente.Items.IndexOf(Acao.Cliente);
+end;
+
+procedure TfrmFormulario.UpdateKBBounds;
+var
+  LFocused : TControl;
+  LFocusRect: TRectF;
+begin
+  FNeedOffset := False;
+  if Assigned(Focused) then
+  begin
+    LFocused := TControl(Focused.GetObject);
+    LFocusRect := LFocused.AbsoluteRect;
+    LFocusRect.Offset(scrollPrincipal.ViewportPosition);
+    if (LFocusRect.IntersectsWith(TRectF.Create(FKBBounds))) and
+       (LFocusRect.Bottom > FKBBounds.Top) then
+    begin
+      FNeedOffset := True;
+      MainLayout1.Align := TAlignLayout.alHorizontal;
+      scrollPrincipal.RealignContent;
+      Application.ProcessMessages;
+      scrollPrincipal.ViewportPosition :=
+        PointF(scrollPrincipal.ViewportPosition.X,
+               LFocusRect.Bottom - FKBBounds.Top);
+    end;
+  end;
+  if not FNeedOffset then
+    RestorePosition;
 end;
 
 procedure TfrmFormulario.ValidaEditVazioDescricao;

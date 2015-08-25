@@ -5,32 +5,34 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
-  FMX.Header, FMX.Layouts,uAcao,uDmPrincipal, FMX.Objects, FMX.Ani;
+  FMX.Header, FMX.Layouts,uAcao,uDmPrincipal, FMX.Objects, FMX.Ani, FMX.ExtCtrls,
+  FMX.Effects, FMX.Edit;
 
 type
   TfrmPrincipal = class(TForm)
     VertScrollBoxFundo: TVertScrollBox;
     pnlTitulo: TPanel;
     lblTitulo: TLabel;
-    CallPnlNoticiaPrincipal: TCalloutPanel;
-    pnlNoticiaBot: TPanel;
-    lblDescricao: TLabel;
-    lblDescricaoTit: TLabel;
-    pnlNoticiaMid: TPanel;
-    lblAutor: TLabel;
-    lblAutorTit: TLabel;
-    pnlNoticiaTop: TPanel;
-    lblDataHora: TLabel;
-    lblCodigo: TLabel;
-    LineSeparador: TLine;
     tmrAtualizaFeed: TTimer;
-    lblNomeEmpresa: TLabel;
-    imgLogoEmpresa: TImage;
     SpeedButton1: TSpeedButton;
-    FloatAnimation1: TFloatAnimation;
+    RetanguloMenu: TRectangle;
+    lblNovo: TLabel;
+    AniFloatMenu: TFloatAnimation;
+    retanguloNovo: TRectangle;
+    ShadowEffect1: TShadowEffect;
+    ShadowEffect2: TShadowEffect;
+    imgNovo: TImage;
+    imgMenu: TImage;
+    InnerGlowEffect1: TInnerGlowEffect;
+    pnlPesquisa: TPanel;
+    imgPesquisar: TImage;
+    edtPesquisar: TEdit;
     procedure tmrAtualizaFeedTimer(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure spdNovoClick(Sender: TObject);
+    procedure imgMenuClick(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     { Private declarations }
    procedure AbrirNoticia(Sender : TObject; PertenceAoUsuario:boolean);
@@ -92,7 +94,7 @@ begin
   DadosNoticia.Observacoes                  := 'Eis aqui uma observação';
   DadosNoticia.Autor                        := 'Raimundo Nonato Guedes';
   DadosNoticia.Cliente                      := 'Ed. Excalibur';
-  CallPnlNoticiaPrincipal.Tag := 1;   // Notícia pertence ao usuário logado
+  //CallPnlNoticiaPrincipal.Tag := 1;   // Notícia pertence ao usuário logado
   DadosNoticia.NumOrdemServico := 100;
   {Fim passagem de teste}
 
@@ -300,12 +302,39 @@ begin
  AbrirNoticia(Sender,PertenceAoUsuario);
 end;
 
+procedure TfrmPrincipal.FormResize(Sender: TObject);
+begin
+ RetanguloMenu.Position.X := imgMenu.Position.X + imgMenu.Width - RetanguloMenu.Width;
+end;
+
 procedure TfrmPrincipal.FormShow(Sender: TObject);
 begin
  teste := 0;
+ RetanguloMenu.Height := 0;
 end;
 
 
+
+procedure TfrmPrincipal.imgMenuClick(Sender: TObject);
+begin
+ RetanguloMenu.Position.X := imgMenu.Position.X + imgMenu.Width - RetanguloMenu.Width;
+ RetanguloMenu.BringToFront;
+ AniFloatMenu.Inverse := (RetanguloMenu.Height > 0);
+ AniFloatMenu.Enabled := True;
+ AniFloatMenu.Enabled := False;
+
+end;
+
+procedure TfrmPrincipal.spdNovoClick(Sender: TObject);
+begin
+ if not Assigned(frmFormulario) then
+ begin
+  frmFormulario := TFrmFormulario.Create(Self);
+ end;
+ Frmformulario.NovaNoticia;
+ FrmFormulario.Show;
+
+end;
 
 procedure TfrmPrincipal.SpeedButton1Click(Sender: TObject);
 var

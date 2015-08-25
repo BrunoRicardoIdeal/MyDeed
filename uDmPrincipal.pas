@@ -12,6 +12,9 @@ type
   private
     { Private declarations }
   public
+   var
+    CodUsuarioLogado : Integer;
+    NomeUsuarioLogado : String;
   const
    CAMINHO_ARQUIVOS_MYDEED = '/storage/sdcard0/MyDeed';
     { Public declarations }

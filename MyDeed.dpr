@@ -9,7 +9,9 @@ uses
   uFrmRegister in 'uFrmRegister.pas' {frmRegister},
   uFrmServicos in 'uFrmServicos.pas' {frmServicos},
   uAcao in 'uAcao.pas',
-  uDmPrincipal in 'uDmPrincipal.pas' {dmPrincipal: TDataModule};
+  uDmPrincipal in 'uDmPrincipal.pas' {dmPrincipal: TDataModule},
+  uMensagem in 'uMensagem.pas',
+  uFrmMensagens in 'uFrmMensagens.pas' {frmMensagens};
 
 {$R *.res}
 
@@ -17,6 +19,6 @@ begin
   Application.Initialize;
   Application.CreateForm(TdmPrincipal, dmPrincipal);
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
-
+  Application.CreateForm(TfrmMensagens, frmMensagens);
   Application.Run;
 end.
