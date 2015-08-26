@@ -33,6 +33,9 @@ type
     procedure spdNovoClick(Sender: TObject);
     procedure imgMenuClick(Sender: TObject);
     procedure FormResize(Sender: TObject);
+    procedure FormKeyUp(Sender: TObject; var Key: Word; var KeyChar: Char;
+      Shift: TShiftState);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
     { Private declarations }
    procedure AbrirNoticia(Sender : TObject; PertenceAoUsuario:boolean);
@@ -58,7 +61,7 @@ implementation
 
 {$R *.fmx}
 
- uses uFrmFormulario;
+ uses uFrmFormulario , FMX.Helpers.Android;
 
 { TfrmPrincipal }
 
@@ -300,6 +303,33 @@ begin
  {fim Teste}
  PertenceAoUsuario := TPanel(Sender).Parent.Tag = 1;
  AbrirNoticia(Sender,PertenceAoUsuario);
+end;
+
+procedure TfrmPrincipal.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+begin
+if MessageDlg('Deseja realmente fechar a aplicação?',
+        TMsgDlgType.mtConfirmation,[TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo], 0, TMsgDlgBtn.mbNo) = mrYes  then
+   begin
+      CanClose := True;
+      SharedActivity.finish
+   end
+ else
+  begin
+    CanClose := False;
+    ShowMessage('Você respondeu não');
+  end;
+end;
+
+procedure TfrmPrincipal.FormKeyUp(Sender: TObject; var Key: Word;
+  var KeyChar: Char; Shift: TShiftState);
+  begin
+// if (key = vkHardwareBack) and not (edtPesquisar.IsFocused) then
+// begin
+//   ShowMessage('Entrou no método');
+//   FreeAndNil(dmPrincipal);
+//   FreeAndNil(frmPrincipal);
+//   Application.Terminate;
+// end;
 end;
 
 procedure TfrmPrincipal.FormResize(Sender: TObject);

@@ -8,10 +8,10 @@ uses
   uFrmPrincipal in 'uFrmPrincipal.pas' {frmPrincipal},
   uFrmRegister in 'uFrmRegister.pas' {frmRegister},
   uFrmServicos in 'uFrmServicos.pas' {frmServicos},
-  uAcao in 'uAcao.pas',
   uDmPrincipal in 'uDmPrincipal.pas' {dmPrincipal: TDataModule},
-  uMensagem in 'uMensagem.pas',
-  uFrmMensagens in 'uFrmMensagens.pas' {frmMensagens};
+  uFrmMensagens in 'uFrmMensagens.pas' {frmMensagens},
+  uAcao in 'Class\uAcao.pas',
+  uMensagem in 'Class\uMensagem.pas';
 
 {$R *.res}
 
@@ -19,6 +19,5 @@ begin
   Application.Initialize;
   Application.CreateForm(TdmPrincipal, dmPrincipal);
   Application.CreateForm(TfrmPrincipal, frmPrincipal);
-  Application.CreateForm(TfrmMensagens, frmMensagens);
   Application.Run;
 end.

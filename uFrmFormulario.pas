@@ -64,7 +64,12 @@ type
     procedure ValidaEditVazioDescricao;
     procedure ValidaEditVazuiNumOrdServico;
     procedure UpdateKBBounds;
-    { Private declarations }
+    procedure RestorePosition;
+    procedure CalcContentBoundsProc(Sender: TObject; var ContentBounds: TRectF);
+   { Private declarations }
+   var
+    FKBBounds: TRectF;
+    FNeedOffset: Boolean;
   public
    procedure RecebeNoticia(Acao : TAcao);
    procedure NovaNoticia;
@@ -78,7 +83,7 @@ var
 
 implementation
 
-  uses ufrmPrincipal;
+  uses ufrmPrincipal,Math;
 
 {$R *.fmx}
 
@@ -89,6 +94,16 @@ begin
    frmServicos := TfrmServicos.Create(Self);
  end;
  frmServicos.Show;
+end;
+
+procedure TfrmFormulario.CalcContentBoundsProc(Sender: TObject;
+  var ContentBounds: TRectF);
+begin
+  if FNeedOffset and (FKBBounds.Top > 0) then
+  begin
+    ContentBounds.Bottom := Max(ContentBounds.Bottom,
+                                2 * ClientHeight - FKBBounds.Top);
+  end;
 end;
 
 procedure TfrmFormulario.CriarListaInicialClientes;
@@ -162,6 +177,8 @@ begin
 	frmServicos := TfrmServicos.Create(Self);
  end;
 
+ scrollPrincipal.OnCalcContentBounds := CalcContentBoundsProc;
+
 end;
 
 procedure TfrmFormulario.FormShow(Sender: TObject);
@@ -173,39 +190,18 @@ end;
 procedure TfrmFormulario.FormVirtualKeyboardHidden(Sender: TObject;
   KeyboardVisible: Boolean; const Bounds: TRect);
 begin
- FTecladoShow := false;
-  if not KeyboardVisible then
-  begin
-   AnimateFloat('Padding.Top', 0, 0.1);
-  end;
+  FKBBounds.Create(0, 0, 0, 0);
+  FNeedOffset := False;
+  RestorePosition;
 end;
 
 procedure TfrmFormulario.FormVirtualKeyboardShown(Sender: TObject;
   KeyboardVisible: Boolean; const Bounds: TRect);
-var
-     O: TFMXObject;
 begin
-{ Mover o controle onde se digita algo para cima do teclado, para se poder ver
- o que é digitado }
- FTecladoShow := true;
- if Assigned(Focused) and (Focused.GetObject is TControl) then
- begin
-  if TControl(Focused).AbsoluteRect.Bottom - Padding.Top >= (Bounds.Top) then
-  begin
-   for O in Children do
-   begin
-    if (O is TFloatAnimation) and (TFloatAnimation(O).PropertyName = 'Padding.Top') then
-    begin
-     TFloatAnimation(O).StopAtCurrent;
-    end;
-    AnimateFloat('Padding.Top',Bounds.Top -  (TControl(Focused).AbsoluteRect.Bottom + Padding.Top) , 0.1)
-   end;
-  end;
- end
- else
- begin
-  AnimateFloat('Padding.Top', 0, 0.1);
- end;
+  FKBBounds := TRectF.Create(Bounds);
+  FKBBounds.TopLeft := ScreenToClient(FKBBounds.TopLeft);
+  FKBBounds.BottomRight := ScreenToClient(FKBBounds.BottomRight);
+  UpdateKBBounds;
 end;
 
 procedure TfrmFormulario.HabilitaEdicao;
@@ -275,6 +271,13 @@ begin
  cbCliente.ItemIndex                    := cbCliente.Items.IndexOf(Acao.Cliente);
 end;
 
+procedure TfrmFormulario.RestorePosition;
+begin
+  scrollPrincipal.ViewportPosition := PointF(scrollPrincipal.ViewportPosition.X, 0);
+//  MainLayout1.Align := TAlignLayout.alClient;
+  scrollPrincipal.RealignContent;
+end;
+
 procedure TfrmFormulario.UpdateKBBounds;
 var
   LFocused : TControl;
@@ -286,16 +289,13 @@ begin
     LFocused := TControl(Focused.GetObject);
     LFocusRect := LFocused.AbsoluteRect;
     LFocusRect.Offset(scrollPrincipal.ViewportPosition);
-    if (LFocusRect.IntersectsWith(TRectF.Create(FKBBounds))) and
-       (LFocusRect.Bottom > FKBBounds.Top) then
+    if (LFocusRect.IntersectsWith(TRectF.Create(FKBBounds))) and (LFocusRect.Bottom > FKBBounds.Top) then
     begin
       FNeedOffset := True;
-      MainLayout1.Align := TAlignLayout.alHorizontal;
+     // MainLayout1.Align := TAlignLayout.alHorizontal;
       scrollPrincipal.RealignContent;
       Application.ProcessMessages;
-      scrollPrincipal.ViewportPosition :=
-        PointF(scrollPrincipal.ViewportPosition.X,
-               LFocusRect.Bottom - FKBBounds.Top);
+      scrollPrincipal.ViewportPosition := PointF(scrollPrincipal.ViewportPosition.X,  2* (LFocusRect.Bottom - FKBBounds.Top));
     end;
   end;
   if not FNeedOffset then
