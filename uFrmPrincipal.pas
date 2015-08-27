@@ -6,27 +6,10 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
   FMX.Header, FMX.Layouts,uAcao,uDmPrincipal, FMX.Objects, FMX.Ani, FMX.ExtCtrls,
-  FMX.Effects, FMX.Edit;
+  FMX.Effects, FMX.Edit, FMX.Controls.Presentation;
 
 type
   TfrmPrincipal = class(TForm)
-    VertScrollBoxFundo: TVertScrollBox;
-    pnlTitulo: TPanel;
-    lblTitulo: TLabel;
-    tmrAtualizaFeed: TTimer;
-    SpeedButton1: TSpeedButton;
-    RetanguloMenu: TRectangle;
-    lblNovo: TLabel;
-    AniFloatMenu: TFloatAnimation;
-    retanguloNovo: TRectangle;
-    ShadowEffect1: TShadowEffect;
-    ShadowEffect2: TShadowEffect;
-    imgNovo: TImage;
-    imgMenu: TImage;
-    InnerGlowEffect1: TInnerGlowEffect;
-    pnlPesquisa: TPanel;
-    imgPesquisar: TImage;
-    edtPesquisar: TEdit;
     procedure tmrAtualizaFeedTimer(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -61,7 +44,7 @@ implementation
 
 {$R *.fmx}
 
- uses uFrmFormulario , FMX.Helpers.Android;
+ uses uFrmFormulario ;
 
 { TfrmPrincipal }
 
@@ -75,9 +58,9 @@ begin
  DadosNoticia  := TAcao.Create;
  ListaServicos := TStringList.Create;
 
- if not Assigned(frmFormulario) then
+ if not Assigned(frmAcoes) then
  begin
-  frmFormulario := TfrmFormulario.Create(Self);
+  frmAcoes := frmAcoes.Create(Self);
  end;
 
  try
@@ -260,7 +243,7 @@ begin
   nPnlNoticiaTop.OnClick           := EventoClickPanelNoticia;
   nPnlNoticiaMid.OnClick           := EventoClickPanelNoticia;
   nPnlNoticiaBot.onclick           := EventoClickPanelNoticia;
-  nCallPnlNoticiaPrincipal.AnimateFloat('Opacity', 1.0, 1, TAnimationType.atInOut, TInterpolationType.itLinear);
+  nCallPnlNoticiaPrincipal.AnimateFloat('Opacity', 1.0, 1, TAnimationType.InOut, TInterpolationType.Linear);
   
 end;
 
@@ -311,7 +294,7 @@ if MessageDlg('Deseja realmente fechar a aplicação?',
         TMsgDlgType.mtConfirmation,[TMsgDlgBtn.mbYes, TMsgDlgBtn.mbNo], 0, TMsgDlgBtn.mbNo) = mrYes  then
    begin
       CanClose := True;
-      SharedActivity.finish
+      Application.Terminate;
    end
  else
   begin

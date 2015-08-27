@@ -1,60 +1,58 @@
 object frmLogin: TfrmLogin
   Left = 0
   Top = 0
-  BorderStyle = bsSingle
+  BorderStyle = Single
   Caption = 'Form1'
   ClientHeight = 402
   ClientWidth = 320
   Visible = True
   FormFactor.Width = 320
   FormFactor.Height = 480
-  FormFactor.Devices = [dkDesktop, dkiPhone, dkiPad]
-  DesignerMobile = True
-  DesignerWidth = 320
-  DesignerHeight = 427
-  DesignerDeviceName = '2.7 QVGA Android Phone'
-  DesignerOrientation = 0
-  DesignerOSVersion = ''
+  FormFactor.Devices = [Desktop, iPhone, iPad]
+  DesignerMasterStyle = 3
   object edtLogin: TEdit
-    Touch.InteractiveGestures = [igLongTap, igDoubleTap]
-    Align = alTop
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    Align = Top
     TabOrder = 0
     Position.Y = 169.000000000000000000
-    Width = 320.000000000000000000
-    Height = 32.000000000000000000
     HelpType = htKeyword
+    Size.Width = 320.000000000000000000
+    Size.Height = 32.000000000000000000
+    Size.PlatformDefault = False
     TextPrompt = 'Usu'#225'rio'
-    KillFocusByReturn = False
   end
   object edtSenha: TEdit
-    Touch.InteractiveGestures = [igLongTap, igDoubleTap]
-    Align = alTop
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    Align = Top
     TabOrder = 1
     Position.Y = 201.000000000000000000
-    Width = 320.000000000000000000
-    Height = 32.000000000000000000
+    Size.Width = 320.000000000000000000
+    Size.Height = 32.000000000000000000
+    Size.PlatformDefault = False
     TextPrompt = 'Senha'
-    KillFocusByReturn = False
   end
   object pnlSuperior: TPanel
-    Align = alTop
-    Height = 169.000000000000000000
-    Width = 320.000000000000000000
+    Align = Top
+    Size.Width = 320.000000000000000000
+    Size.Height = 169.000000000000000000
+    Size.PlatformDefault = False
     TabOrder = 2
   end
   object pnlBotoes: TPanel
-    Align = alTop
-    Height = 40.000000000000000000
+    Align = Top
     Position.Y = 233.000000000000000000
-    Width = 320.000000000000000000
+    Size.Width = 320.000000000000000000
+    Size.Height = 40.000000000000000000
+    Size.PlatformDefault = False
     TabOrder = 3
     object btnLogin: TButton
-      Align = alRight
-      Height = 40.000000000000000000
+      Align = Right
       Position.X = 247.000000000000000000
+      Size.Width = 73.000000000000000000
+      Size.Height = 40.000000000000000000
+      Size.PlatformDefault = False
       TabOrder = 0
       Text = 'Login'
-      Width = 73.000000000000000000
       OnClick = btnLoginClick
     end
   end

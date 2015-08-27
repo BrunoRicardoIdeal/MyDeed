@@ -5,7 +5,8 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.StdCtrls,
-  FMX.Layouts, FMX.Objects, FMX.Memo,uDmPrincipal;
+  FMX.Layouts, FMX.Objects, FMX.Memo,uDmPrincipal, FMX.ScrollBox,
+  FMX.Controls.Presentation;
 
 type
   TfrmMensagens = class(TForm)

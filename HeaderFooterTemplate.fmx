@@ -6,29 +6,27 @@ object HeaderFooterForm: THeaderFooterForm
   ClientWidth = 384
   FormFactor.Width = 1440
   FormFactor.Height = 900
-  FormFactor.Devices = [dkDesktop, dkiPhone, dkiPad]
-  DesignerMobile = True
-  DesignerWidth = 384
-  DesignerHeight = 592
-  DesignerDeviceName = 'Google Nexus 4'
-  DesignerOrientation = 0
-  DesignerOSVersion = ''
+  FormFactor.Devices = [Desktop, iPhone, iPad]
+  DesignerMasterStyle = 0
   object Header: TToolBar
-    Height = 48.000000000000000000
+    Size.Width = 384.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
     TabOrder = 0
-    Width = 384.000000000000000000
     object HeaderLabel: TLabel
-      Height = 48.000000000000000000
+      Size.Width = 384.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
       StyleLookup = 'toollabel'
       Text = 'Title'
-      Width = 384.000000000000000000
     end
   end
   object Footer: TToolBar
-    Height = 48.000000000000000000
     Position.Y = 48.000000000000000000
+    Size.Width = 384.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
     StyleLookup = 'bottomtoolbar'
     TabOrder = 1
-    Width = 384.000000000000000000
   end
 end

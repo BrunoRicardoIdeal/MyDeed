@@ -5,86 +5,92 @@ object frmMensagens: TfrmMensagens
   ClientWidth = 384
   FormFactor.Width = 320
   FormFactor.Height = 480
-  FormFactor.Devices = [dkDesktop]
-  DesignerMobile = True
-  DesignerWidth = 384
-  DesignerHeight = 592
-  DesignerDeviceName = 'Google Nexus 4'
-  DesignerOrientation = 0
-  DesignerOSVersion = ''
+  FormFactor.Devices = [Desktop]
+  DesignerMasterStyle = 0
   object VertScrollBoxFundo: TVertScrollBox
-    Align = alClient
-    Height = 519.000000000000000000
-    ShowScrollBars = False
+    Align = Client
+    Size.Width = 384.000000000000000000
+    Size.Height = 519.000000000000000000
+    Size.PlatformDefault = False
     TabOrder = 0
-    Width = 384.000000000000000000
+    ShowScrollBars = False
+    Viewport.Width = 384.000000000000000000
+    Viewport.Height = 519.000000000000000000
     object pnlMensagemPrincipal: TPanel
-      Align = alTop
-      Height = 161.000000000000000000
-      Width = 384.000000000000000000
+      Align = Top
+      Size.Width = 384.000000000000000000
+      Size.Height = 161.000000000000000000
+      Size.PlatformDefault = False
       TabOrder = 0
       object pnlAutorMensagem: TPanel
-        Align = alTop
-        Height = 33.000000000000000000
-        Width = 384.000000000000000000
+        Align = Top
+        Size.Width = 384.000000000000000000
+        Size.Height = 33.000000000000000000
+        Size.PlatformDefault = False
         TabOrder = 0
         object lblAutorMensagem: TLabel
-          Align = alLeft
-          Height = 33.000000000000000000
+          Align = Left
           Position.X = 161.000000000000000000
+          Size.Width = 217.000000000000000000
+          Size.Height = 33.000000000000000000
+          Size.PlatformDefault = False
           Text = 'lblAutorMensagem :'
-          Width = 217.000000000000000000
-          Trimming = ttCharacter
         end
         object lblDataMensagem: TLabel
-          Align = alLeft
-          Height = 33.000000000000000000
+          Align = Left
+          Size.Width = 161.000000000000000000
+          Size.Height = 33.000000000000000000
+          Size.PlatformDefault = False
           Text = 'lblDataMensagem'
-          Width = 161.000000000000000000
-          Trimming = ttCharacter
         end
       end
       object RetanguloMensagem: TRectangle
-        Align = alTop
-        Height = 96.000000000000000000
+        Align = Top
         Position.Y = 33.000000000000000000
+        Size.Width = 384.000000000000000000
+        Size.Height = 96.000000000000000000
+        Size.PlatformDefault = False
         Stroke.Color = claCornflowerblue
         Stroke.Thickness = 2.000000000000000000
-        Stroke.Cap = scRound
-        Stroke.Dash = sdDashDot
-        Stroke.Join = sjBevel
-        Width = 384.000000000000000000
+        Stroke.Cap = Round
+        Stroke.Dash = DashDot
+        Stroke.Join = Bevel
         object MemoMensagem: TMemo
-          Touch.InteractiveGestures = [igPan, igLongTap, igDoubleTap]
-          Align = alClient
-          Height = 90.000000000000000000
+          Touch.InteractiveGestures = [Pan, LongTap, DoubleTap]
+          DataDetectorTypes = []
+          Align = Client
           Margins.Left = 3.000000000000000000
           Margins.Top = 3.000000000000000000
           Margins.Right = 3.000000000000000000
           Margins.Bottom = 3.000000000000000000
+          Size.Width = 378.000000000000000000
+          Size.Height = 90.000000000000000000
+          Size.PlatformDefault = False
           TabOrder = 0
-          Width = 378.000000000000000000
+          Viewport.Width = 374.000000000000000000
+          Viewport.Height = 86.000000000000000000
         end
       end
     end
   end
   object Header: TToolBar
-    Height = 48.000000000000000000
+    Size.Width = 384.000000000000000000
+    Size.Height = 48.000000000000000000
+    Size.PlatformDefault = False
     TabOrder = 1
-    Width = 384.000000000000000000
     object lblDescricaoNoticia: TLabel
-      Align = alClient
-      Height = 48.000000000000000000
+      Align = Client
+      Size.Width = 302.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
       Text = 'Descri'#231#227'o da not'#237'cia'
-      Width = 302.000000000000000000
-      Trimming = ttCharacter
     end
     object lblCodNoticia: TLabel
-      Align = alLeft
-      Height = 48.000000000000000000
+      Align = Left
+      Size.Width = 82.000000000000000000
+      Size.Height = 48.000000000000000000
+      Size.PlatformDefault = False
       Text = 'C'#243'd. Noticia'
-      Width = 82.000000000000000000
-      Trimming = ttCharacter
     end
   end
 end

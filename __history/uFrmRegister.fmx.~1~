@@ -1,86 +1,112 @@
 object frmRegister: TfrmRegister
   Left = 0
   Top = 0
-  ClientHeight = 402
+  ClientHeight = 548
   ClientWidth = 320
+  StyleBook = dmPrincipal.StyleBookRise
   FormFactor.Width = 320
   FormFactor.Height = 480
-  FormFactor.Devices = [Desktop]
+  FormFactor.Devices = [dkDesktop, dkiPhone, dkiPad]
   DesignerMobile = True
   DesignerWidth = 320
-  DesignerHeight = 427
-  DesignerDeviceName = '2.7 QVGA Android Phone'
+  DesignerHeight = 568
+  DesignerDeviceName = 'iPhone5'
   DesignerOrientation = 0
   DesignerOSVersion = ''
-  object Header: THeader
-    Sides = [Top, Left, Bottom, Right]
-    Align = Top
-    Height = 50.000000000000000000
-    TabOrder = 0
-    Width = 320.000000000000000000
-    object lblTitulo: TLabel
-      Align = Left
-      Height = 23.000000000000000000
-      Position.X = 7.000000000000000000
-      Position.Y = 15.000000000000000000
-      Text = 'Register'
-      Width = 82.000000000000000000
-    end
-    object Button1: TButton
-      Align = Right
-      Height = 44.000000000000000000
-      Position.X = 184.000000000000000000
-      Position.Y = 6.000000000000000000
-      TabOrder = 2
-      Text = 'Button1'
-      Width = 73.000000000000000000
-    end
-  end
   object Label1: TLabel
-    Align = Top
+    Align = alTop
     Height = 23.000000000000000000
-    Position.Y = 50.000000000000000000
+    Position.Y = 44.000000000000000000
     Text = 'Login (E-Mail)'
     Width = 320.000000000000000000
   end
   object edtLogin: TEdit
-    Touch.InteractiveGestures = [LongTap, DoubleTap]
-    Align = Top
+    Touch.InteractiveGestures = [igLongTap, igDoubleTap]
+    Align = alTop
     TabOrder = 3
-    Position.Y = 73.000000000000000000
+    Position.Y = 67.000000000000000000
     Width = 320.000000000000000000
-    Height = 32.000000000000000000
+    Height = 31.000000000000000000
+    KillFocusByReturn = False
   end
   object Label2: TLabel
-    Align = Top
+    Align = alTop
     Height = 23.000000000000000000
-    Position.Y = 105.000000000000000000
+    Position.Y = 152.000000000000000000
     Text = 'Senha'
     Width = 320.000000000000000000
   end
   object edtSenha: TEdit
-    Touch.InteractiveGestures = [LongTap, DoubleTap]
-    Align = Top
-    TabOrder = 2
+    Touch.InteractiveGestures = [igLongTap, igDoubleTap]
+    Align = alTop
+    TabOrder = 1
     Password = True
-    Position.Y = 128.000000000000000000
+    Position.Y = 175.000000000000000000
     Width = 320.000000000000000000
-    Height = 32.000000000000000000
+    Height = 31.000000000000000000
+    KillFocusByReturn = False
   end
   object Label3: TLabel
-    Align = Top
+    Align = alTop
     Height = 23.000000000000000000
-    Position.Y = 160.000000000000000000
+    Position.Y = 206.000000000000000000
     Text = 'Confirmar Senha'
     Width = 320.000000000000000000
   end
   object edtConfirmarSenha: TEdit
-    Touch.InteractiveGestures = [LongTap, DoubleTap]
-    Align = Top
-    TabOrder = 6
+    Touch.InteractiveGestures = [igLongTap, igDoubleTap]
+    Align = alTop
+    TabOrder = 5
     Password = True
-    Position.Y = 183.000000000000000000
+    Position.Y = 229.000000000000000000
     Width = 320.000000000000000000
-    Height = 32.000000000000000000
+    Height = 31.000000000000000000
+    KillFocusByReturn = False
+  end
+  object Header: TToolBar
+    Height = 44.000000000000000000
+    TabOrder = 0
+    Width = 320.000000000000000000
+    object HeaderLabel: TLabel
+      Font.Size = 18.000000000000000000
+      StyledSettings = [ssFamily, ssStyle, ssFontColor]
+      Height = 48.000000000000000000
+      Text = 'Register'
+      Width = 145.000000000000000000
+    end
+    object spdCancelar: TSpeedButton
+      Align = alRight
+      CanFocus = True
+      Height = 44.000000000000000000
+      Position.X = 193.000000000000000000
+      StyleLookup = 'buttonstyle'
+      Text = 'Voltar'
+      Width = 63.000000000000000000
+    end
+    object spdSalvar: TSpeedButton
+      Align = alRight
+      CanFocus = True
+      Height = 44.000000000000000000
+      Position.X = 256.000000000000000000
+      StyleLookup = 'buttonstyle'
+      Text = 'Salvar'
+      Width = 64.000000000000000000
+    end
+  end
+  object Label4: TLabel
+    Align = alTop
+    Height = 23.000000000000000000
+    Position.Y = 98.000000000000000000
+    Text = 'CPF'
+    Width = 320.000000000000000000
+  end
+  object edtCPF: TEdit
+    Touch.InteractiveGestures = [igLongTap, igDoubleTap]
+    Align = alTop
+    TabOrder = 8
+    Position.Y = 121.000000000000000000
+    Width = 320.000000000000000000
+    Height = 31.000000000000000000
+    KillFocusByReturn = False
   end
 end

@@ -1,57 +1,61 @@
 object frmLogin: TfrmLogin
   Left = 0
   Top = 0
+  BorderStyle = bsSingle
   Caption = 'Form1'
-  ClientHeight = 567
-  ClientWidth = 384
+  ClientHeight = 402
+  ClientWidth = 320
+  Visible = True
   FormFactor.Width = 320
   FormFactor.Height = 480
-  FormFactor.Devices = [Desktop]
+  FormFactor.Devices = [dkDesktop, dkiPhone, dkiPad]
   DesignerMobile = True
-  DesignerWidth = 384
-  DesignerHeight = 592
-  DesignerDeviceName = 'Google Nexus 4'
+  DesignerWidth = 320
+  DesignerHeight = 427
+  DesignerDeviceName = '2.7 QVGA Android Phone'
   DesignerOrientation = 0
   DesignerOSVersion = ''
   object edtLogin: TEdit
-    Touch.InteractiveGestures = [LongTap, DoubleTap]
-    TabOrder = 2
-    Position.X = 64.000000000000000000
-    Position.Y = 216.000000000000000000
-    Width = 257.000000000000000000
+    Touch.InteractiveGestures = [igLongTap, igDoubleTap]
+    Align = alTop
+    TabOrder = 0
+    Position.Y = 169.000000000000000000
+    Width = 320.000000000000000000
     Height = 32.000000000000000000
+    HelpType = htKeyword
+    TextPrompt = 'Usu'#225'rio'
+    KillFocusByReturn = False
   end
   object edtSenha: TEdit
-    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    Touch.InteractiveGestures = [igLongTap, igDoubleTap]
+    Align = alTop
     TabOrder = 1
-    Position.X = 64.000000000000000000
-    Position.Y = 272.000000000000000000
-    Width = 257.000000000000000000
+    Position.Y = 201.000000000000000000
+    Width = 320.000000000000000000
     Height = 32.000000000000000000
+    TextPrompt = 'Senha'
+    KillFocusByReturn = False
   end
-  object btnLogin: TButton
-    Height = 44.000000000000000000
-    Position.X = 249.000000000000000000
-    Position.Y = 312.000000000000000000
-    TabOrder = 4
-    Text = 'Login'
-    Width = 73.000000000000000000
+  object pnlSuperior: TPanel
+    Align = alTop
+    Height = 169.000000000000000000
+    Width = 320.000000000000000000
+    TabOrder = 2
   end
-  object btnRegister: TButton
-    Height = 44.000000000000000000
-    Position.X = 136.000000000000000000
-    Position.Y = 312.000000000000000000
+  object pnlBotoes: TPanel
+    Align = alTop
+    Height = 40.000000000000000000
+    Position.Y = 233.000000000000000000
+    Width = 320.000000000000000000
     TabOrder = 3
-    Text = 'Register'
-    Width = 106.000000000000000000
-  end
-  object Label1: TLabel
-    StyledSettings = [Family, Size, Style]
-    Height = 23.000000000000000000
-    Position.X = 136.000000000000000000
-    Position.Y = 360.000000000000000000
-    TextSettings.FontColor = claCornflowerblue
-    Text = 'Esqueci a minha senha'
-    Width = 217.000000000000000000
+    object btnLogin: TButton
+      Align = alRight
+      Height = 40.000000000000000000
+      Position.X = 247.000000000000000000
+      TabOrder = 0
+      Text = 'Login'
+      Width = 73.000000000000000000
+      OnClick = btnLoginClick
+    end
   end
 end
