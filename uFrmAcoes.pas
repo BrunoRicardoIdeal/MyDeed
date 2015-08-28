@@ -6,7 +6,7 @@ uses
   System.SysUtils, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   System.Rtti, FMX.Grid, FMX.Layouts, FMX.StdCtrls, FMX.ListBox,uDmPrincipal,
-  FMX.Objects, FMX.Controls.Presentation, uFrmFeed;
+  FMX.Objects, FMX.Controls.Presentation, uFrmFeed, FMX.Effects;
 
 type
   tFrmAcoes = class(TForm)
@@ -16,6 +16,7 @@ type
     imgAdicionar: TImage;
     ListBoxAcoes: TListBox;
     cbAcoes: TComboBox;
+    ShadowEffect1: TShadowEffect;
     procedure btnVoltarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure spdAddClick(Sender: TObject);
@@ -70,14 +71,18 @@ end;
 function tFrmAcoes.ExisteItem: Boolean;
 var
  itemCombo :String;
+ itensListados : String;
 begin
- itemCombo :=   UpperCase(cbAcoes.Items[cbAcoes.ItemIndex]);
- result :=  UpperCase(ListBoxAcoes.Items.Text).Contains(itemCombo);
+ itemCombo     := Trim(LowerCase(cbAcoes.Items[cbAcoes.ItemIndex]));
+ itensListados := Trim(LowerCase(ListBoxAcoes.Items.Text));
+ Result        := (itensListados.Contains(itemCombo));
 end;
 
 procedure tFrmAcoes.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
- FreeAndNil(frmAcoes);
+  frmNoticia.Show;
+  Action     := TCloseAction.caFree;
+  frmAcoes := nil;
 end;
 
 procedure tFrmAcoes.FormCreate(Sender: TObject);
@@ -94,19 +99,22 @@ end;
 
 procedure tFrmAcoes.imgAdicionarClick(Sender: TObject);
 begin
- if not ExisteItem then
+ if  cbAcoes.ItemIndex > -1 then
  begin
-  ListBoxAcoes.Items.Add(cbAcoes.Items[cbAcoes.ItemIndex]);
- end
- else if cbAcoes.Items[cbAcoes.ItemIndex].IsEmpty then
- begin
-  ShowMessage('Selecione um serviço!');
-  Exit;
- end
- else
- begin
-   ShowMessage('Serviço já inserido!');
-   Exit;
+  if not ExisteItem then
+   begin
+    ListBoxAcoes.Items.Add(cbAcoes.Items[cbAcoes.ItemIndex]);
+   end
+   else if cbAcoes.Items[cbAcoes.ItemIndex].IsEmpty then
+   begin
+    ShowMessage('Selecione um serviço!');
+    Exit;
+   end
+   else
+   begin
+     ShowMessage('Serviço já inserido!');
+     Exit;
+   end;
  end;
 end;
 
@@ -126,8 +134,7 @@ end;
 
 procedure tFrmAcoes.imgSalvarClick(Sender: TObject);
 begin
-  frmNoticia.Show;
-  FreeAndNil(frmAcoes);
+ Close;
 end;
 
 procedure tFrmAcoes.spdAddClick(Sender: TObject);

@@ -18,10 +18,9 @@ public
 
  var
  CodServico : Integer;
- dtChegada :TDate;
- hsChegada :TTime;
- dtSaida   :TDate;
- hsSaida   :TTime;
+ dtChegada :TDateTime;
+ dtSaida   :TDateTime;
+ dtPostagem : TDateTime;
  DescricaoRapida : String;
  codAcoesRealizadas : array of Integer;
  listaAcoesRealizadas : TStringList;

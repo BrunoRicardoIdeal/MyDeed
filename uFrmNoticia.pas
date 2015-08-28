@@ -45,6 +45,7 @@ type
     dtChegada: TDateEdit;
     StyleBook1: TStyleBook;
     cbCliente: TComboBox;
+    ShadowEffect1: TShadowEffect;
     procedure FormCreate(Sender: TObject);
     procedure CriarListaInicialClientes;
     procedure FormVirtualKeyboardShown(Sender: TObject;
@@ -56,9 +57,12 @@ type
     procedure imgVoltarClick(Sender: TObject);
     procedure btnAddAcaoClick(Sender: TObject);
     procedure imgAddAcaoClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormDestroy(Sender: TObject);
   private
    var
     CaminhoListaInicialClientes : String;
+    listaAcoesRealizadas :String;
     procedure ValidaEditVazioDescricao;
     procedure ValidaEditVazuiNumOrdServico;
     procedure UpdateKBBounds;
@@ -91,6 +95,7 @@ begin
  begin
    frmAcoes := TfrmAcoes.Create(Self);
  end;
+ frmAcoes.ListBoxAcoes.Items.Text := listaAcoesRealizadas;
  frmAcoes.Show;
 end;
 
@@ -134,6 +139,14 @@ begin
  edtNumOrdemServico.ReadOnly := True;
 end;
 
+procedure TfrmNoticia.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+ frmFeed.Show;
+ Action     := TCloseAction.caFree;
+ frmAcoes   := nil;
+ frmNoticia := nil;
+end;
+
 procedure TfrmNoticia.FormCreate(Sender: TObject);
 begin
  CaminhoListaInicialClientes := dmPrincipal.CAMINHO_ARQUIVOS_MYDEED + '/Clientes.txt';
@@ -145,7 +158,7 @@ begin
  cbCliente.Items.LoadFromFile(CaminhoListaInicialClientes);
  edtDescricaoRapida.Tag := 1; //Edit sem a descrição auxiliar em cor menos visível
 
- if FrmAcoes = nil then
+ if not Assigned(FrmAcoes) then
  begin
 	FrmAcoes := TFrmAcoes.Create(Self);
  end;
@@ -153,6 +166,11 @@ begin
  scrollPrincipal.OnCalcContentBounds := CalcContentBoundsProc;
 
 
+end;
+
+procedure TfrmNoticia.FormDestroy(Sender: TObject);
+begin
+  FreeAndNil(frmAcoes);
 end;
 
 procedure TfrmNoticia.FormShow(Sender: TObject);
@@ -206,15 +224,12 @@ end;
 procedure TfrmNoticia.imgSalvarClick(Sender: TObject);
 begin
  ShowMessage('Salvo com sucesso!');
- frmFeed.Show;
- FreeAndNil(frmNoticia);
-
+ Close;
 end;
 
 procedure TfrmNoticia.imgVoltarClick(Sender: TObject);
 begin
- frmFeed.Show;
- FreeAndNil(frmNoticia);
+ Close;
 end;
 
 procedure TfrmNoticia.NovaNoticia;
@@ -233,12 +248,12 @@ end;
 
 procedure TfrmNoticia.RecebeNoticia(Servico: TServico);
 begin
- dtChegada.Date                         := Servico.dtChegada;
- HorasChegada.Time                      := Servico.hsChegada;
- dtSaida.Date                           := Servico.dtSaida;
- HorasSaida.Time                        := Servico.hsSaida;
+ dtChegada.Date                         := StrToDate(FormatDateTime('dd/mm/yyyy',Servico.dtChegada));
+ HorasChegada.Time                      := StrToTime(FormatDateTime('HH:MM',Servico.dtChegada));
+ dtSaida.Date                           := StrToDate(FormatDateTime('dd/mm/yyyy',Servico.dtSaida));
+ HorasSaida.Time                        := StrToTime(FormatDateTime('HH:MM',Servico.dtSaida));
  edtDescricaoRapida.Text                := Servico.DescricaoRapida;
- frmAcoes.ListBoxAcoes.Items.Text       := Servico.listaAcoesRealizadas.Text;
+ listaAcoesRealizadas                   := Servico.listaAcoesRealizadas.Text;
  lblAutor.Text                          := 'Autor : ' + Servico.Autor;
  memoObs.Lines.Text                     := Servico.Observacoes;
  cbCliente.ItemIndex                    := cbCliente.Items.IndexOf(Servico.Cliente);
