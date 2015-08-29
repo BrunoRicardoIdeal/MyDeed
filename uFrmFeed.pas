@@ -14,7 +14,6 @@ type
     pnlTitulo: TPanel;
     lblTitulo: TLabel;
     tmrAtualizaFeed: TTimer;
-    SpeedButton1: TSpeedButton;
     RetanguloMenu: TRectangle;
     AniFloatMenu: TFloatAnimation;
     ShadowEffect1: TShadowEffect;
@@ -26,11 +25,12 @@ type
     ShadowEffect2: TShadowEffect;
     imgNovo: TImage;
     RetanguloFinalizar: TRectangle;
-    ShadowEffect4: TShadowEffect;
     imgFinalizar: TImage;
-    ShadowEffect3: TShadowEffect;
     spdNovo: TSpeedButton;
     spdFinalizar: TSpeedButton;
+    spdCarregarMais: TSpeedButton;
+    imgLoading: TImage;
+    FloatAnimationRotacaoImg: TFloatAnimation;
     procedure tmrAtualizaFeedTimer(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -44,6 +44,8 @@ type
     procedure imgNovoClick(Sender: TObject);
     procedure spdFinalizarClick(Sender: TObject);
     procedure imgPesquisarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure spdCarregarMaisClick(Sender: TObject);
   private
     { Private declarations }
    procedure AbrirNoticia(Sender : TObject; PertenceAoUsuario:boolean);
@@ -52,13 +54,18 @@ type
    procedure EventoClickPanelNoticia(Sender : TObject);
    procedure FinalizarApp;
    procedure AddNovaNoticia;
+   procedure AtualizarFeed;
+    procedure AtivarLoading;
+    procedure DesativarLoading;
    var
+   {Componentes criados em tempo de execução}
     nCallPnlNoticiaPrincipal : TCalloutPanel;
     nPnlNoticiaTop,nPnlNoticiaMid ,nPnlNoticiaBot : TPanel;
     nLineSeparador : TLine;
     nlblCodigo,nlblDataHora,nlblAutorTit,nlblAutor,nlblDescricaoTit,nlblDescricao :TLabel;
-    teste : Integer ;
 
+    ultIdFeed : Integer;
+    efeitoBlur : TBlurEffect;
   public
     { Public declarations }
   end;
@@ -79,26 +86,21 @@ var
  DadosNoticia : TServico;
  ListaServicos : TStringList;
  lQryAcao : TFdQuery;
+ lQryServicos : TFdQuery;
  CodNoticia : Integer;
  i : Integer;
  NomeComponente : String;
- t : Integer;
 begin
    {Pesquisar as informações da Notiícia}
-  NomeComponente := TFmxObject(Sender).Name;
-  for i := 1 to Length(NomeComponente) do
-  begin
-    if TryStrToInt(NomeComponente[i],t) then
-    begin
-      CodNoticia := StrToInt(Copy(NomeComponente,i,Length(NomeComponente)));
-      Break;
-    end;
-  end;
+ NomeComponente := TFmxObject(Sender).Name;
+ CodNoticia := StrToInt(Copy(NomeComponente, pos('_',NomeComponente)+1,Length(NomeComponente)) );
 
-
- DadosNoticia  := TServico.Create;
- ListaServicos := TStringList.Create;
- lQryAcao      := TFDQuery.Create(Self);
+ DadosNoticia            := TServico.Create;
+ ListaServicos           := TStringList.Create;
+ lQryAcao                := TFDQuery.Create(Self);
+ lQryAcao.Connection     := dmPrincipal.SQLiteConn;
+ lQryServicos            := TFDQuery.Create(Self);
+ lQryServicos.Connection := dmPrincipal.SQLiteConn;
 
  if not Assigned(frmNoticia) then
  begin
@@ -107,27 +109,8 @@ begin
 
  try
   {Passar para o DadosNoticia os valores de suas variaveis publicas,
-   através da busca pelo código
+   através da busca pelo código}
 
-
-
-  }
-
-
-  {Passagem de teste}
-//  DadosNoticia.CodServico                      := 140;
-//  DadosNoticia.dtChegada                    := EncodeDate(2015,08,21);
-//  DadosNoticia.dtSaida                      := EncodeDate(2015,08,21);
-//  DadosNoticia.DescricaoRapida              := 'Troca de cabos';
-//  ListaServicos.Add('Troca de Cabos');
-//  DadosNoticia.listaAcoesRealizadas.Text := ListaServicos.Text;
-//  DadosNoticia.Observacoes                  := 'Eis aqui uma observação';
-//  DadosNoticia.Autor                        := 'Raimundo Nonato Guedes';
-//  DadosNoticia.Cliente                      := 'Ed. Excalibur';
-//  //CallPnlNoticiaPrincipal.Tag := 1;   // Notícia pertence ao usuário logado
-//  DadosNoticia.NumOrdemServico := 100;
-  {Fim passagem de teste}
-  lQryAcao.Connection := dmPrincipal.SQLiteConn;
   lQryAcao.SQL.Add(' SELECT ID ');
   lQryAcao.SQL.Add('        ,COD_NOTICIA');
   lQryAcao.SQL.Add('        ,AUTOR');
@@ -142,6 +125,29 @@ begin
   lQryAcao.SQL.Add('WHERE COD_NOTICIA = :COD_NOTICIA');
   lQryAcao.ParamByName('COD_NOTICIA').AsInteger := CodNoticia;
   lQryAcao.Open();
+
+  DadosNoticia.CodServico                      := lQryAcao.FieldByName('COD_NOTICIA').AsInteger;
+  DadosNoticia.dtChegada                       := lQryAcao.FieldByName('DT_CHEGADA').AsDateTime;
+  DadosNoticia.dtSaida                         := lQryAcao.FieldByName('DT_SAIDA').AsDateTime;
+  DadosNoticia.DescricaoRapida                 := lQryAcao.FieldByName('DESCRICAO').AsString;
+  DadosNoticia.Observacoes                     := lQryAcao.FieldByName('OBSERVACAO').AsString;
+  DadosNoticia.Autor                           := lQryAcao.FieldByName('AUTOR').AsString;
+  DadosNoticia.Cliente                         := lQryAcao.FieldByName('CLIENTE').AsString;
+
+  lQryServicos.SQL.Add('SELECT DESCRICAO');
+  lQryServicos.SQL.Add('FROM ACOESREALIZADAS');
+  lQryServicos.SQL.Add('WHERE COD_NOTICIA = :COD_NOTICIA');
+  lQryServicos.ParamByName('COD_NOTICIA').AsInteger := CodNoticia;
+  lQryServicos.Open();
+  lQryServicos.First;
+
+  while not lQryServicos.Eof do
+  begin
+    ListaServicos.Add(lQryServicos.FieldByName('DESCRICAO').AsString);
+    lQryServicos.Next;
+  end;
+  DadosNoticia.listaAcoesRealizadas.Text := ListaServicos.Text;
+
 
   if PertenceAoUsuario then
   begin
@@ -158,14 +164,45 @@ begin
  finally
   DadosNoticia.Free;
   ListaServicos.Free;
+  lQryAcao.Free;
+  lQryServicos.Free;
  end;
 
 end;
 
 procedure TfrmFeed.CriaComponentesNoticia(Servico: TServico; ParentPrincipal : TFmxObject);
+var
+ i : Integer;
+ PosYAnterior : Single;
+ PosYMaior : Single;
 begin
 {Painel principal da noticia}
+  spdCarregarMais.Visible          := False; {Sumir o botão de atualizar}
   nCallPnlNoticiaPrincipal         := TCalloutPanel.Create(ParentPrincipal);
+  nCallPnlNoticiaPrincipal.Opacity := 0;
+  nCallPnlNoticiaPrincipal.Parent  := ParentPrincipal;
+  nCallPnlNoticiaPrincipal.Name    := 'nCallPnlNoticiaPrincipal_' + IntToStr(Servico.CodServico);
+  PosYMaior := 0;
+  for i := 0 to ParentPrincipal.ComponentCount -1 do
+  begin
+    if (ParentPrincipal.Components[i] is TCalloutPanel) then
+    begin
+     if TCalloutPanel(ParentPrincipal.Components[i]).Position.Y > PosYMaior then
+     begin
+       PosYMaior := TCalloutPanel(ParentPrincipal.Components[i]).Position.Y;
+     end;
+
+//      if ParentPrincipal.Components[i].Name = nCallPnlNoticiaPrincipal.Name then
+//      begin
+//        PosYAnterior := TCalloutPanel(ParentPrincipal.Components[ParentPrincipal.ComponentCount - 1 ]).Position.Y;
+//        Break;
+//      end;
+
+    end;
+
+  end;
+
+  nCallPnlNoticiaPrincipal.Position.y := PosYMaior + 1;
   nCallPnlNoticiaPrincipal.Align   := TAlignLayout.Top;
   nCallPnlNoticiaPrincipal.Height  := 120;
   // Tag = 1 : O autor da notícia é o usuário logado
@@ -179,18 +216,16 @@ begin
    nCallPnlNoticiaPrincipal.Tag     := 0;
   end;
 
-  //Senao  nCallPnlNoticiaPrincipal.Tag     := 1;
-  nCallPnlNoticiaPrincipal.Parent  := ParentPrincipal;
-  nCallPnlNoticiaPrincipal.Name    := 'nCallPnlNoticiaPrincipal' + IntToStr(Servico.CodServico);
-
-  nCallPnlNoticiaPrincipal.Opacity := 0;
+  {Reposicionar o botão de atualizar}
+  spdCarregarMais.Position.y := nCallPnlNoticiaPrincipal.Position.y + 10;
+  spdCarregarMais.Visible := True;
 
   {Painel do meio da noticia}
   nPnlNoticiaMid                   := TPanel.Create(nCallPnlNoticiaPrincipal);
   nPnlNoticiaMid.Align             := TAlignLayout.Top;
   nPnlNoticiaMid.Height            := 35;
   nPnlNoticiaMid.Parent            := nCallPnlNoticiaPrincipal;
-  nPnlNoticiaMid.Name              := 'nPnlNoticiaMid' + IntToStr(Servico.CodServico);
+  nPnlNoticiaMid.Name              := 'nPnlNoticiaMid_' + IntToStr(Servico.CodServico);
   nPnlNoticiaMid.Position.x        :=  0;
   nPnlNoticiaMid.Position.y        :=  46;
 
@@ -200,7 +235,7 @@ begin
   nlblAutorTit.Align               := TAlignLayout.Left;
   nlblAutorTit.Width               := 49;
   nlblAutorTit.Parent              := nPnlNoticiaMid;
-  nlblAutorTit.Name                := 'nlblAutorTit' + intToStr(Servico.CodServico);
+  nlblAutorTit.Name                := 'nlblAutorTit_' + intToStr(Servico.CodServico);
   nlblAutorTit.Position.X          := 0;
   nlblAutorTit.Position.Y          := 0;
   nlblAutorTit.Font.Size           := 14;
@@ -212,7 +247,7 @@ begin
   nlblAutor.Align                  := TAlignLayout.Left;
   nlblAutor.Width                  := 209;
   nlblAutor.Parent                 := nPnlNoticiaMid;
-  nlblAutor.Name                   := 'nlblAutor' + intToStr(Servico.CodServico);
+  nlblAutor.Name                   := 'nlblAutor_' + intToStr(Servico.CodServico);
   nlblAutor.Position.X             := 49;
   nlblAutor.Position.Y             := 0;
   nlblAutor.Font.Size              := 14;
@@ -224,7 +259,7 @@ begin
   nPnlNoticiaBot.Align             := TAlignLayout.Top;
   nPnlNoticiaBot.Height            := 35;
   nPnlNoticiaBot.Parent            := nCallPnlNoticiaPrincipal;
-  nPnlNoticiaBot.Name              := 'nPnlNoticiaBot' + IntToStr(Servico.CodServico);
+  nPnlNoticiaBot.Name              := 'nPnlNoticiaBot_' + IntToStr(Servico.CodServico);
   nPnlNoticiaBot.Position.x        :=  0;
   nPnlNoticiaBot.Position.y        :=  81;
 
@@ -235,7 +270,7 @@ begin
   nlblDescricaoTit.Align           := TAlignLayout.Left;
   nlblDescricaoTit.Width           := 73;
   nlblDescricaoTit.Parent          := nPnlNoticiaBot;
-  nlblDescricaoTit.Name            := 'nlblDescricaoTit' + intToStr(Servico.CodServico);
+  nlblDescricaoTit.Name            := 'nlblDescricaoTit_' + intToStr(Servico.CodServico);
   nlblDescricaoTit.Position.X      := 0;
   nlblDescricaoTit.Position.y      := 0;
   nlblDescricaoTit.Font.Size       := 14;
@@ -247,7 +282,7 @@ begin
   nlblDescricao.Align              := TAlignLayout.Left;
   nlblDescricao.Width              := 201;
   nlblDescricao.Parent             := nPnlNoticiaBot;
-  nlblDescricao.Name               := 'nlblDescricao' + intToStr(Servico.CodServico);
+  nlblDescricao.Name               := 'nlblDescricao_' + intToStr(Servico.CodServico);
   nlblDescricao.Position.X         := 73;
   nlblDescricao.Position.y         := 0;
   nlblDescricao.Font.Size          := 14;
@@ -261,7 +296,7 @@ begin
   nPnlNoticiaTop.Align             := TAlignLayout.Top;
   nPnlNoticiaTop.Height            := 35;
   nPnlNoticiaTop.Parent            := nCallPnlNoticiaPrincipal;
-  nPnlNoticiaTop.Name              := 'nPnlNoticiaTop' + IntToStr(Servico.CodServico);
+  nPnlNoticiaTop.Name              := 'nPnlNoticiaTop_' + IntToStr(Servico.CodServico);
   nPnlNoticiaTop.Position.x        :=  0;
   nPnlNoticiaTop.Position.y        :=  11;
 
@@ -271,7 +306,7 @@ begin
   nlblCodigo.Align                 := TAlignLayout.Left;
   nlblCodigo.Width                 := 65;
   nlblCodigo.Parent                := nPnlNoticiaTop;
-  nlblCodigo.Name                  := 'nlblCodigo' + intToStr(Servico.CodServico);
+  nlblCodigo.Name                  := 'nlblCodigo_' + intToStr(Servico.CodServico);
   nlblCodigo.Position.X            := 0;
   nlblCodigo.Position.Y            := 0;
   nlblCodigo.Font.Size             := 14;
@@ -284,7 +319,7 @@ begin
   nlblDataHora.Align               := TAlignLayout.Left;
   nlblDataHora.Width               := 192;
   nlblDataHora.Parent              := nPnlNoticiaTop;
-  nlblDataHora.Name                := 'nlblDataHora' + intToStr(Servico.CodServico);
+  nlblDataHora.Name                := 'nlblDataHora_' + intToStr(Servico.CodServico);
   nlblDataHora.Position.X          := 73;
   nlblDataHora.Font.Size           := 14;
   nlblDataHora.StyledSettings      := [TStyledSetting.Family];
@@ -313,21 +348,37 @@ end;
 procedure TfrmFeed.CriaNovaNoticia(var Servico :TServico);
 begin
 {Faz pesquisa no Banco e preenche o objeto}
- dmPrincipal.qryNoticiasFeed.Open();
- Servico.CodServico      := dmPrincipal.qryNoticiasFeed.FieldByName('COD_NOTICIA').AsInteger;
- Servico.DescricaoRapida := dmPrincipal.qryNoticiasFeed.FieldByName('DESCRICAO').AsString;
- Servico.dtPostagem      := dmPrincipal.qryNoticiasFeed.FieldByName('DT_POSTAGEM').AsDateTime;
- Servico.Autor           := dmPrincipal.qryNoticiasFeed.FieldByName('AUTOR').AsString;
- try
-  CriaComponentesNoticia(Servico, VertScrollBoxFundo);
- except
-  on E:Exception do
+
+
+
+  dmPrincipal.qryNoticiasFeed.ParamByName('ID').AsInteger := ultIdFeed -1;
+  dmPrincipal.qryNoticiasFeed.Open();
+  dmPrincipal.qryNoticiasFeed.First;
+  if dmPrincipal.qryNoticiasFeed.FieldByName('ID').AsInteger = ultIdFeed then
   begin
-    ShowMessage('Falha ao carregar notícia. Mensagem :' + E.Message);
+    Exit;  //Não há mais Atualizações
   end;
 
- end;
 
+  while not dmPrincipal.qryNoticiasFeed.eof do
+  begin
+    Servico.CodServico      := dmPrincipal.qryNoticiasFeed.FieldByName('COD_NOTICIA').AsInteger;
+    Servico.DescricaoRapida := dmPrincipal.qryNoticiasFeed.FieldByName('DESCRICAO').AsString;
+    Servico.dtPostagem      := dmPrincipal.qryNoticiasFeed.FieldByName('DT_POSTAGEM').AsDateTime;
+    Servico.Autor           := dmPrincipal.qryNoticiasFeed.FieldByName('AUTOR').AsString;
+    try
+     CriaComponentesNoticia(Servico, VertScrollBoxFundo);
+    except
+     on E:Exception do
+     begin
+       ShowMessage('Falha ao carregar notícia. Mensagem :' + E.Message);
+     end;
+    end;
+    dmPrincipal.qryNoticiasFeed.Next;
+  end;
+  dmPrincipal.qryNoticiasFeed.Last;
+  ultIdFeed := dmPrincipal.qryNoticiasFeedID.AsInteger;
+  dmPrincipal.qryNoticiasFeed.Close;
 
 
 
@@ -343,9 +394,7 @@ procedure TfrmFeed.EventoClickPanelNoticia(Sender: TObject);
 var
  PertenceAoUsuario : Boolean;
 begin
- {Teste}
- TPanel(Sender).Parent.Tag:= 1;
- {fim Teste}
+ RetanguloMenu.Height := 0;
  PertenceAoUsuario := TPanel(Sender).Parent.Tag = 1;
  AbrirNoticia(Sender,PertenceAoUsuario);
 end;
@@ -371,11 +420,49 @@ begin
   frmNoticia.Show;
 end;
 
+procedure TfrmFeed.AtualizarFeed;
+var
+ Servico : TServico;
+begin
+ Try
+  Servico := TServico.Create;
+  CriaNovaNoticia(Servico);
+ Finally
+   Servico.Free;
+ End;
+end;
+
+procedure TfrmFeed.AtivarLoading;
+begin
+  imgLoading.Visible               := True;
+  FloatAnimationRotacaoImg.Enabled := True;
+  efeitoBlur := TBlurEffect.Create(VertScrollBoxFundo);
+  efeitoBlur.Softness              := 0.3;
+  efeitoBlur.Parent                := VertScrollBoxFundo;
+  efeitoBlur.Enabled               := True;
+//  pnlTitulo.Visible                := False;
+end;
+
+procedure TfrmFeed.DesativarLoading;
+begin
+  imgLoading.Visible := False;
+  FloatAnimationRotacaoImg.Enabled := False;
+  efeitoBlur.Free;
+//  pnlTitulo.Visible                := True;
+end;
+
 procedure TfrmFeed.FormClose(Sender: TObject; var Action: TCloseAction);
 begin
  Action     := TCloseAction.caFree;
  frmFeed := nil;
  Application.Terminate;
+end;
+
+procedure TfrmFeed.FormCreate(Sender: TObject);
+begin
+ {Perguntar pro web service qual é o max id}
+ ultIdFeed := 100;
+ imgLoading.Visible := False;
 end;
 
 procedure TfrmFeed.FormResize(Sender: TObject);
@@ -386,7 +473,6 @@ end;
 procedure TfrmFeed.FormShow(Sender: TObject);
 
 begin
- teste := 0;
  RetanguloMenu.Height := 0;
 
 
@@ -445,6 +531,14 @@ end;
 
 
 
+procedure TfrmFeed.spdCarregarMaisClick(Sender: TObject);
+
+begin
+ AtivarLoading;
+ AtualizarFeed;
+ //DesativarLoading;
+end;
+
 procedure TfrmFeed.spdFinalizarClick(Sender: TObject);
 begin
  FinalizarApp;
@@ -458,16 +552,9 @@ end;
 
 procedure TfrmFeed.SpeedButton1Click(Sender: TObject);
 var
- Acao : TServico;
+ Servico : TServico;
 begin
- inc(teste);
- Try
-  Acao := TServico.Create;
-  Acao.CodServico := Teste;
-  CriaNovaNoticia(Acao);
- Finally
-   Acao.Free;
- End;
+ dmPrincipal.SQLiteConn.ExecSQL('INSERT INTO NOTICIASFEED(COD_NOTICIA) VALUES(10)');
 end;
 
 procedure TfrmFeed.tmrAtualizaFeedTimer(Sender: TObject);

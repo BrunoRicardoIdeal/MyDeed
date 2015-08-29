@@ -8,13 +8,14 @@ uses
   FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async, FireDAC.Phys,
   FireDAC.Phys.SQLite, FireDAC.Phys.SQLiteDef, FireDAC.Stan.ExprFuncs, Data.DB,
   FireDAC.Comp.Client, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
-  FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.VCLUI.Wait, FireDAC.Comp.UI;
+  FireDAC.DApt, FireDAC.Comp.DataSet,
+   FireDAC.Comp.UI,
+   FMX.Forms, FMX.Platform, FMX.VirtualKeyboard, FireDAC.FMXUI.Wait;
 
 type
   TdmPrincipal = class(TDataModule)
     SQLiteConn: TFDConnection;
     qryNoticiasFeed: TFDQuery;
-    FdWaitCursor: TFDGUIxWaitCursor;
     qryAcoesNoticias: TFDQuery;
     qryNoticiasFeedID: TFDAutoIncField;
     qryNoticiasFeedCOD_NOTICIA: TIntegerField;
@@ -29,6 +30,7 @@ type
     qryAcoesNoticiasCOD_NOTICIA: TIntegerField;
     qryAcoesNoticiasDESCRICAO: TStringField;
     qryNoticiasFeedCLIENTE: TStringField;
+    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -40,7 +42,7 @@ type
  {$IFDEF ANDROID}
   const
    CAMINHO_ARQUIVOS_MYDEED = '/storage/sdcard0/MyDeed';
-   CAMINHOBD = '/storage/sdcard0/MyDeed/MyDeedDB.db'
+   CAMINHOBD = '/storage/sdcard0/MyDeed/MyDeedDB.db';
  {$ENDIF}
  {$IFDEF WIN32}
   const
@@ -48,6 +50,7 @@ type
    CAMINHOBD = 'D:\Projetos\MyDeed\MyDeed\BD\MyDeedDB.db';
  {$ENDIF}
     { Public declarations }
+
   end;
 
 var
@@ -55,8 +58,7 @@ var
 
 implementation
 
-uses
-  FMX.Forms;
+
 
 {%CLASSGROUP 'FMX.Controls.TControl'}
 
@@ -68,7 +70,7 @@ begin
  ForceDirectories(CAMINHO_ARQUIVOS_MYDEED);
  SQLiteConn.Params.Clear;
  SQLiteConn.Params.Database := CAMINHOBD;
- SQLiteConn.Params.Add('Database =' + CAMINHOBD);
+ SQLiteConn.Params.Add('Database=' + CAMINHOBD);
  SQLiteConn.Params.Add('DriverID=SQLite');
  SQLiteConn.Params.Add('FailIfMissing=False');
  SQLiteConn.Connected := True;

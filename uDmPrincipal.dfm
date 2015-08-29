@@ -15,13 +15,35 @@ object dmPrincipal: TdmPrincipal
   object qryNoticiasFeed: TFDQuery
     Connection = SQLiteConn
     SQL.Strings = (
-      'SELECT * FROM NoticiasFeed')
+      'SELECT     ID   ,'
+      '    COD_NOTICIA ,'
+      '    AUTOR       ,'
+      '    DESCRICAO   ,'
+      '    DT_POSTAGEM ,'
+      '    DT_CHEGADA  ,'
+      '    DT_SAIDA    ,'
+      '    EQUIPAMENTO ,'
+      '    OBSERVACAO  ,'
+      '    CLIENTE      '
+      'FROM NOTICIASFEED'
+      'WHERE ID <= :ID'
+      'ORDER BY ID DESC'
+      'LIMIT 2'
+      '')
     Left = 40
     Top = 96
+    ParamData = <
+      item
+        Name = 'ID'
+        DataType = ftInteger
+        ParamType = ptInput
+        Value = Null
+      end>
     object qryNoticiasFeedID: TFDAutoIncField
       FieldName = 'ID'
       Origin = 'ID'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object qryNoticiasFeedCOD_NOTICIA: TIntegerField
       FieldName = 'COD_NOTICIA'
@@ -65,11 +87,6 @@ object dmPrincipal: TdmPrincipal
       Size = 40
     end
   end
-  object FdWaitCursor: TFDGUIxWaitCursor
-    Provider = 'Forms'
-    Left = 152
-    Top = 72
-  end
   object qryAcoesNoticias: TFDQuery
     Connection = SQLiteConn
     SQL.Strings = (
@@ -80,6 +97,7 @@ object dmPrincipal: TdmPrincipal
       FieldName = 'ID'
       Origin = 'ID'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
     end
     object qryAcoesNoticiasCOD_NOTICIA: TIntegerField
       FieldName = 'COD_NOTICIA'
@@ -90,5 +108,10 @@ object dmPrincipal: TdmPrincipal
       Origin = 'DESCRICAO'
       Size = 40
     end
+  end
+  object FDGUIxWaitCursor1: TFDGUIxWaitCursor
+    Provider = 'FMX'
+    Left = 88
+    Top = 184
   end
 end

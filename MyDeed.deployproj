@@ -3,7 +3,16 @@
     <ProjectExtensions>
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>
-    <ItemGroup Condition="'$(Platform)'=='iOSDevice32'"/>
+    <ItemGroup Condition="'$(Platform)'=='iOSDevice32'">
+        <DeployFile Include="BD\MyDeedDB.db" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>MyDeed.app\</RemoteDir>
+            <RemoteName>MyDeedDB.db</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='Android'">
         <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_SplashImage_960x720.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>MyDeed\res\drawable-xlarge\</RemoteDir>
@@ -61,6 +70,22 @@
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
         </DeployFile>
+        <DeployFile Include="D:\Projetos\MyDeed\MyDeed\Android\Debug\classes.dex" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>MyDeed\classes\</RemoteDir>
+            <RemoteName>classes.dex</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="BD\MyDeedDB.db" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>MyDeed\storage\sdcard0\MyDeed\</RemoteDir>
+            <RemoteName>MyDeedDB.db</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="Android\Debug\splash_image_def.xml" Condition="'$(Config)'=='Debug'">
             <RemoteDir>MyDeed\res\drawable\</RemoteDir>
             <RemoteName>splash_image_def.xml</RemoteName>
@@ -68,6 +93,15 @@
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="Android\Debug\libMyDeed.so" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>MyDeed\library\lib\armeabi-v7a\</RemoteDir>
+            <RemoteName>libMyDeed.so</RemoteName>
+            <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+            <Required>True</Required>
         </DeployFile>
         <DeployFile Include="Android\Debug\AndroidManifest.xml" Condition="'$(Config)'=='Debug'">
             <RemoteDir>MyDeed\</RemoteDir>
@@ -108,15 +142,6 @@
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
-        </DeployFile>
-        <DeployFile Include="Android\Debug\libMyDeed.so" Condition="'$(Config)'=='Debug'">
-            <RemoteDir>MyDeed\library\lib\armeabi-v7a\</RemoteDir>
-            <RemoteName>libMyDeed.so</RemoteName>
-            <Operation>1</Operation>
-            <LocalCommand/>
-            <RemoteCommand/>
-            <Overwrite>True</Overwrite>
-            <Required>True</Required>
         </DeployFile>
         <DeployFile Include="$(BDS)\bin\Artwork\Android\FM_LauncherIcon_36x36.png" Condition="'$(Config)'=='Debug'">
             <RemoteDir>MyDeed\res\drawable-ldpi\</RemoteDir>
@@ -161,10 +186,44 @@
             <Overwrite>True</Overwrite>
             <Required>True</Required>
         </DeployFile>
+        <DeployFile Include="BD\MyDeedDB.db" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>MyDeed\</RemoteDir>
+            <RemoteName>MyDeedDB.db</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
     </ItemGroup>
-    <ItemGroup Condition="'$(Platform)'=='iOSDevice64'"/>
-    <ItemGroup Condition="'$(Platform)'=='Win64'"/>
+    <ItemGroup Condition="'$(Platform)'=='iOSDevice64'">
+        <DeployFile Include="BD\MyDeedDB.db" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>MyDeed.app\</RemoteDir>
+            <RemoteName>MyDeedDB.db</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
+    <ItemGroup Condition="'$(Platform)'=='Win64'">
+        <DeployFile Include="BD\MyDeedDB.db" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>MyDeed\</RemoteDir>
+            <RemoteName>MyDeedDB.db</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+    </ItemGroup>
     <ItemGroup Condition="'$(Platform)'=='OSX32'">
+        <DeployFile Include="BD\MyDeedDB.db" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>MyDeed.app\Contents\MacOS\</RemoteDir>
+            <RemoteName>MyDeedDB.db</RemoteName>
+            <Operation>0</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
         <DeployFile Include="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib">
             <RemoteDir>MyDeed.app\Contents\MacOS\</RemoteDir>
             <RemoteName>libcgunwind.1.0.dylib</RemoteName>
@@ -179,6 +238,14 @@
             <RemoteDir>MyDeed.app\</RemoteDir>
             <RemoteName>libcgunwind.1.0.dylib</RemoteName>
             <Operation>1</Operation>
+            <LocalCommand/>
+            <RemoteCommand/>
+            <Overwrite>True</Overwrite>
+        </DeployFile>
+        <DeployFile Include="BD\MyDeedDB.db" Condition="'$(Config)'=='Debug'">
+            <RemoteDir>MyDeed.app\</RemoteDir>
+            <RemoteName>MyDeedDB.db</RemoteName>
+            <Operation>0</Operation>
             <LocalCommand/>
             <RemoteCommand/>
             <Overwrite>True</Overwrite>
